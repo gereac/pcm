@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.gcsf.pcm.intro.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="com.gcsf.pcm.intro.Perspective"
+            id="com.gcsf.pcm.perspective">
+      </perspective>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.gcsf.pcm.application"
+            name="RCP Product">
+         <property
+               name="windowImages"
+               value="icons/alt_window_16.gif,icons/alt_window_32.gif">
+         </property>
+         <property
+               name="appName"
+               value="RCP Product">
+         </property>
+      </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            id="com.gcsf.pcm.intro">
+      </intro>
+      <introProductBinding
+            introId="com.gcsf.pcm.intro"
+            productId="com.gcsf.pcm.product">
+      </introProductBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config
+            introId="com.gcsf.pcm.intro"
+            content="introContent.xml"
+            id="com.gcsf.pcm.configId">
+         <presentation
+               home-page-id="root">
+            <implementation
+                  kind="html"
+                  os="win32,linux,macosx">
+            </implementation>
+         </presentation>
+      </config>
+   </extension>
+   <extension
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandler
+            class="com.gcsf.pcm.splashHandlers.InteractiveSplashHandler"
+            id="com.gcsf.pcm.splashHandlers.interactive">
+      </splashHandler>
+      <splashHandlerProductBinding
+            productId="com.gcsf.pcm.product"
+            splashId="com.gcsf.pcm.splashHandlers.interactive">
+      </splashHandlerProductBinding>
+   </extension>
+
+</plugin>
