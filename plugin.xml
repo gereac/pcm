@@ -72,5 +72,55 @@
             splashId="com.gcsf.pcm.splashHandlers.interactive">
       </splashHandlerProductBinding>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="File">
+            <separator
+                  name="com.gcsf.pcm.separator1">
+            </separator>
+            <command
+                  commandId="org.eclipse.ui.file.exit"
+                  label="Exit"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               label="User">
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  label="Add User"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  label="Delete User"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               label="Groups">
+         </menu>
+         <menu
+               label="Help">
+            <command
+                  commandId="org.eclipse.ui.views.showView"
+                  style="push">
+               <parameter
+                     name="org.eclipse.ui.views.showView.viewId"
+                     value="org.eclipse.ui.internal.introView">
+               </parameter>
+            </command>
+            <command
+                  commandId="org.eclipse.ui.help.aboutAction"
+                  label="About"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
 
 </plugin>
