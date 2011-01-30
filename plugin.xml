@@ -92,17 +92,43 @@
                label="User">
             <command
                   commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/user/user_add.png"
                   label="Add User"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/user/user_delete.png"
                   label="Delete User"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/user/user_edit.png"
+                  label="Edit User"
                   style="push">
             </command>
          </menu>
          <menu
                label="Groups">
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/group/group_add.png"
+                  label="Add group"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/group/group_delete.png"
+                  label="Delete group"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/group/group_edit.png"
+                  label="Edit group"
+                  style="push">
+            </command>
          </menu>
          <menu
                label="Help">
@@ -116,10 +142,57 @@
             </command>
             <command
                   commandId="org.eclipse.ui.help.aboutAction"
+                  icon="icons/information.png"
                   label="About"
                   style="push">
             </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="com.gcsf.pcm.toolbars.group">
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/group/group_add.png"
+                  label="Add group"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/group/group_delete.png"
+                  label="Delete group"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/group/group_edit.png"
+                  label="Edit group"
+                  style="push">
+            </command>
+         </toolbar>
+         <toolbar
+               id="com.gcsf.pcm.toolbars.user">
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/user/user_add.png"
+                  label="Add User"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/user/user_delete.png"
+                  label="Delete User"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  icon="icons/user/user_edit.png"
+                  label="Edit User"
+                  style="push">
+            </command>
+         </toolbar>
       </menuContribution>
    </extension>
 

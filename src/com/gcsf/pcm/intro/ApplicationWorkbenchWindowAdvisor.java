@@ -21,8 +21,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	public void preWindowOpen() {
 		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
 		configurer.setInitialSize(new Point(700, 550));
-		configurer.setShowCoolBar(false);
+		configurer.setShowCoolBar(true);
 		configurer.setShowStatusLine(false);
-		configurer.setTitle("Personal Contact Managers");
+		configurer.setTitle("Personal Contact Manager");
 	}
 }
