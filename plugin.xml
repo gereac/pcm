@@ -91,19 +91,19 @@
          <menu
                label="User">
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.users.addUserCommand"
                   icon="icons/user/user_add.png"
                   label="Add User"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
                   icon="icons/user/user_delete.png"
                   label="Delete User"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.users.editUserCommand"
                   icon="icons/user/user_edit.png"
                   label="Edit User"
                   style="push">
@@ -112,19 +112,19 @@
          <menu
                label="Groups">
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.groups.addGroupCommand"
                   icon="icons/group/group_add.png"
                   label="Add group"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.groups.deleteGroupCommand"
                   icon="icons/group/group_delete.png"
                   label="Delete group"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.groups.editGroupCommand"
                   icon="icons/group/group_edit.png"
                   label="Edit group"
                   style="push">
@@ -152,48 +152,163 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="com.gcsf.pcm.toolbars.group">
-            <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
-                  icon="icons/group/group_add.png"
-                  label="Add group"
-                  style="push">
-            </command>
-            <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
-                  icon="icons/group/group_delete.png"
-                  label="Delete group"
-                  style="push">
-            </command>
-            <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
-                  icon="icons/group/group_edit.png"
-                  label="Edit group"
-                  style="push">
-            </command>
-         </toolbar>
-         <toolbar
                id="com.gcsf.pcm.toolbars.user">
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.users.addUserCommand"
                   icon="icons/user/user_add.png"
                   label="Add User"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
                   icon="icons/user/user_delete.png"
                   label="Delete User"
                   style="push">
             </command>
             <command
-                  commandId="org.eclipse.ui.file.restartWorkbench"
+                  commandId="com.gcsf.pcm.commands.users.editUserCommand"
                   icon="icons/user/user_edit.png"
                   label="Edit User"
                   style="push">
             </command>
          </toolbar>
+         <toolbar
+               id="com.gcsf.pcm.toolbars.group">
+            <command
+                  commandId="com.gcsf.pcm.commands.groups.addGroupCommand"
+                  icon="icons/group/group_add.png"
+                  label="Add group"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.gcsf.pcm.commands.groups.deleteGroupCommand"
+                  icon="icons/group/group_delete.png"
+                  label="Delete group"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.gcsf.pcm.commands.groups.editGroupCommand"
+                  icon="icons/group/group_edit.png"
+                  label="Edit group"
+                  style="push">
+            </command>
+         </toolbar>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="com.gcsf.pcm.handlers.user.AddUserHandler"
+            commandId="com.gcsf.pcm.commands.users.addUserCommand">
+      </handler>
+      <handler
+            class="com.gcsf.pcm.handlers.user.DeleteUserHandler"
+            commandId="com.gcsf.pcm.commands.users.deleteUserCommand">
+      </handler>
+      <handler
+            class="com.gcsf.pcm.handlers.user.EditUserHandler"
+            commandId="com.gcsf.pcm.commands.users.editUserCommand">
+      </handler>
+      <handler
+            class="com.gcsf.pcm.handlers.group.AddGroupHandler"
+            commandId="com.gcsf.pcm.commands.groups.addGroupCommand">
+      </handler>
+      <handler
+            class="com.gcsf.pcm.handlers.group.DeleteGroupHandler"
+            commandId="com.gcsf.pcm.commands.groups.deleteGroupCommand">
+      </handler>
+      <handler
+            class="com.gcsf.pcm.handlers.group.EditGroupHandler"
+            commandId="com.gcsf.pcm.commands.groups.editGroupCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.gcsf.pcm.commands.users.addUserCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+6">
+      </key>
+      <key
+            commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+7">
+      </key>
+      <key
+            commandId="com.gcsf.pcm.commands.users.editUserCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+8">
+      </key>
+      <key
+            commandId="com.gcsf.pcm.commands.groups.addGroupCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+2">
+      </key>
+      <key
+            commandId="com.gcsf.pcm.commands.groups.deleteGroupCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+3">
+      </key>
+      <key
+            commandId="com.gcsf.pcm.commands.groups.editGroupCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+4">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="Commands for handling user related actions"
+            id="com.gcsf.pcm.commands.category.user"
+            name="User Comands Category">
+      </category>
+      <command
+            categoryId="com.gcsf.pcm.commands.category.user"
+            defaultHandler="com.gcsf.pcm.handlers.user.AddUserHandler"
+            id="com.gcsf.pcm.commands.users.addUserCommand"
+            name="Add User Command">
+      </command>
+      <command
+            categoryId="com.gcsf.pcm.commands.category.user"
+            defaultHandler="com.gcsf.pcm.handlers.user.DeleteUserHandler"
+            id="com.gcsf.pcm.commands.users.deleteUserCommand"
+            name="Delete User Command">
+      </command>
+      <command
+            categoryId="com.gcsf.pcm.commands.category.user"
+            defaultHandler="com.gcsf.pcm.handlers.user.EditUserHandler"
+            id="com.gcsf.pcm.commands.users.editUserCommand"
+            name="Edit User Command">
+      </command>
+      <category
+            description="Commands for handling group related actions"
+            id="com.gcsf.pcm.commands.category.group"
+            name="Group Comands Category">
+      </category>
+      <command
+            categoryId="com.gcsf.pcm.commands.category.group"
+            defaultHandler="com.gcsf.pcm.handlers.group.AddGroupHandler"
+            id="com.gcsf.pcm.commands.groups.addGroupCommand"
+            name="Add Group Command">
+      </command>
+      <command
+            categoryId="com.gcsf.pcm.commands.category.group"
+            defaultHandler="com.gcsf.pcm.handlers.group.DeleteGroupHandler"
+            id="com.gcsf.pcm.commands.groups.deleteGroupCommand"
+            name="Delete Group Command">
+      </command>
+      <command
+            categoryId="com.gcsf.pcm.commands.category.group"
+            defaultHandler="com.gcsf.pcm.handlers.group.EditGroupHandler"
+            id="com.gcsf.pcm.commands.groups.editGroupCommand"
+            name="Edit Group Command">
+      </command>
    </extension>
 
 </plugin>
