@@ -270,19 +270,16 @@
       </category>
       <command
             categoryId="com.gcsf.pcm.commands.category.user"
-            defaultHandler="com.gcsf.pcm.handlers.user.AddUserHandler"
             id="com.gcsf.pcm.commands.users.addUserCommand"
             name="Add User Command">
       </command>
       <command
             categoryId="com.gcsf.pcm.commands.category.user"
-            defaultHandler="com.gcsf.pcm.handlers.user.DeleteUserHandler"
             id="com.gcsf.pcm.commands.users.deleteUserCommand"
             name="Delete User Command">
       </command>
       <command
             categoryId="com.gcsf.pcm.commands.category.user"
-            defaultHandler="com.gcsf.pcm.handlers.user.EditUserHandler"
             id="com.gcsf.pcm.commands.users.editUserCommand"
             name="Edit User Command">
       </command>
@@ -293,19 +290,16 @@
       </category>
       <command
             categoryId="com.gcsf.pcm.commands.category.group"
-            defaultHandler="com.gcsf.pcm.handlers.group.AddGroupHandler"
             id="com.gcsf.pcm.commands.groups.addGroupCommand"
             name="Add Group Command">
       </command>
       <command
             categoryId="com.gcsf.pcm.commands.category.group"
-            defaultHandler="com.gcsf.pcm.handlers.group.DeleteGroupHandler"
             id="com.gcsf.pcm.commands.groups.deleteGroupCommand"
             name="Delete Group Command">
       </command>
       <command
             categoryId="com.gcsf.pcm.commands.category.group"
-            defaultHandler="com.gcsf.pcm.handlers.group.EditGroupHandler"
             id="com.gcsf.pcm.commands.groups.editGroupCommand"
             name="Edit Group Command">
       </command>
