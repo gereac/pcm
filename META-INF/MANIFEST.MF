@@ -7,6 +7,7 @@ Bundle-Activator: com.gcsf.pcm.Activator
 Bundle-Vendor: GC Software Factory
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.ui.intro
+ org.eclipse.ui.intro,
+ org.eclipse.ui.forms;bundle-version="3.5.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

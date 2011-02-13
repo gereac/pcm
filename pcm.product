@@ -3,37 +3,73 @@
 
 <product name="RCP Product" id="com.gcsf.pcm.product" application="com.gcsf.pcm.application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
+   <aboutInfo>
+      <image path="icons/Login Manager.gif"/>
+      <text>
+         Build a user friendly eclipse RCP application that implements the follow features. 
+
+Code Name : Personal Contact Manager 
+
+I.        Login to the personal contact manager 
+II.        Create new user group 
+A.        Input Values 
+1.        Group Name 
+2.        Group Description 
+3.        Members 
+a)        Add/Delete users to a group 
+b)        Create a new user dialog to add a new user (name, phone, email) 
+III.        List Groups that are Owned by the current user 
+·        Allow users to make changes to existing groups 
+IV.        Bulk Update 
+·        Allow user to search and add/remove search results to one or more groups. 
+V.        Delete group 
+·        Warn user before actually deleting the group 
+VI.        Add one or move of the optional features below 
+
+Optional Features 
+I.        Allow user to drag and drop members between groups and/or any other place you find useful 
+II.        Use table editors to allow user to edit group details from bullet 2 above 
+III.        Be creative and implement any other useful feature.  Make sure you clearly identify the feature you added in the deliverables document 
+
+
+Deliverables 
+Submit a zip file containing the following items in a clearly labeled structure. 
+I.        Eclipse Workspace which includes source code 
+II.        Exported RCP Applications EXE 
+Document listing any special instructions
+      </text>
+   </aboutInfo>
+
    <configIni use="default">
    </configIni>
 
    <launcherArgs>
-      <programArgs>-consoleLog</programArgs>
       <vmArgs>-Xms40m -Xmx384m</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="icons/alt_window_16.gif" i32="icons/alt_window_32.gif"/>
+   <windowImages i16="icons/alt_window_16.gif" i32="icons/alt_window_32.gif" i48="icons/alt_window_48.gif" i64="icons/alt_window_64.gif" i128="icons/alt_window_128.gif"/>
 
    <splash
       handlerType="interactive" />
+   <launcher name="personManager">
+      <solaris/>
+      <win useIco="true">
+         <ico path="/com.gcsf.pcm/icons/ico/Login Manager.ico"/>
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+   </vm>
+
    <plugins>
       <plugin id="ch.qos.logback.classic"/>
       <plugin id="ch.qos.logback.core"/>
       <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="com.gcsf.pcm"/>
       <plugin id="com.ibm.icu"/>
-      <plugin id="com.instantiations.assist.eclipse.core"/>
-      <plugin id="com.instantiations.assist.eclipse.fragment.jdt.core" fragment="true"/>
-      <plugin id="com.instantiations.assist.eclipse.fragment.swt" fragment="true"/>
-      <plugin id="com.instantiations.assist.eclipse.fragment.ui.workbench" fragment="true"/>
-      <plugin id="com.instantiations.common.core"/>
-      <plugin id="com.instantiations.designer.jdt.fragment" fragment="true"/>
-      <plugin id="com.instantiations.eclipse.analysis.utilities"/>
-      <plugin id="com.instantiations.eclipse.debug"/>
-      <plugin id="com.instantiations.eclipse.mail"/>
-      <plugin id="com.instantiations.eclipse.mailservice"/>
-      <plugin id="com.instantiations.eclipse.util"/>
-      <plugin id="javax.mail.glassfish"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.servlet.jsp"/>
       <plugin id="org.apache.ant"/>
@@ -100,7 +136,6 @@
    <configurations>
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
       <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="3" />
    </configurations>
 

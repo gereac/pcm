@@ -27,11 +27,19 @@
             name="RCP Product">
          <property
                name="windowImages"
-               value="icons/alt_window_16.gif,icons/alt_window_32.gif">
+               value="icons/alt_window_16.gif,icons/alt_window_32.gif,icons/alt_window_48.gif,icons/alt_window_64.gif,icons/alt_window_128.gif">
          </property>
          <property
                name="appName"
                value="RCP Product">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/Login Manager.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="Build a user friendly eclipse RCP application that implements the follow features. &#x0A;&#x0A;Code Name : Personal Contact Manager &#x0A;&#x0A;I.        Login to the personal contact manager &#x0A;II.        Create new user group &#x0A;A.        Input Values &#x0A;1.        Group Name &#x0A;2.        Group Description &#x0A;3.        Members &#x0A;a)        Add/Delete users to a group &#x0A;b)        Create a new user dialog to add a new user (name, phone, email) &#x0A;III.        List Groups that are Owned by the current user &#x0A;·        Allow users to make changes to existing groups &#x0A;IV.        Bulk Update &#x0A;·        Allow user to search and add/remove search results to one or more groups. &#x0A;V.        Delete group &#x0A;·        Warn user before actually deleting the group &#x0A;VI.        Add one or move of the optional features below &#x0A;&#x0A;Optional Features &#x0A;I.        Allow user to drag and drop members between groups and/or any other place you find useful &#x0A;II.        Use table editors to allow user to edit group details from bullet 2 above &#x0A;III.        Be creative and implement any other useful feature.  Make sure you clearly identify the feature you added in the deliverables document &#x0A;&#x0A;&#x0A;Deliverables &#x0A;Submit a zip file containing the following items in a clearly labeled structure. &#x0A;I.        Eclipse Workspace which includes source code &#x0A;II.        Exported RCP Applications EXE &#x0A;Document listing any special instructions">
          </property>
       </product>
    </extension>
