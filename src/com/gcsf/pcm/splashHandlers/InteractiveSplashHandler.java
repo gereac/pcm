@@ -288,6 +288,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     data.widthHint = F_TEXT_WIDTH_HINT;
     data.horizontalSpan = 2;
     fTextPassword.setLayoutData(data);
+    fTextPassword.setEchoChar('*');
   }
 
   /**
@@ -314,6 +315,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     data.widthHint = F_TEXT_WIDTH_HINT;
     data.horizontalSpan = 2;
     fTextUsername.setLayoutData(data);
+    fTextUsername.setEchoChar('*');
   }
 
   /**
