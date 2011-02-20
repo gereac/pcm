@@ -8,21 +8,19 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
-	public ApplicationWorkbenchWindowAdvisor(
-			IWorkbenchWindowConfigurer configurer) {
-		super(configurer);
-	}
+  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+    super(configurer);
+  }
 
-	public ActionBarAdvisor createActionBarAdvisor(
-			IActionBarConfigurer configurer) {
-		return new ApplicationActionBarAdvisor(configurer);
-	}
+  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+    return new ApplicationActionBarAdvisor(configurer);
+  }
 
-	public void preWindowOpen() {
-		IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-		configurer.setInitialSize(new Point(700, 550));
-		configurer.setShowCoolBar(true);
-		configurer.setShowStatusLine(false);
-		configurer.setTitle("Personal Contact Manager");
-	}
+  public void preWindowOpen() {
+    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+    configurer.setInitialSize(new Point(700, 550));
+    configurer.setShowCoolBar(true);
+    configurer.setShowStatusLine(false);
+    configurer.setTitle("Personal Contact Manager");
+  }
 }

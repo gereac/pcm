@@ -72,7 +72,7 @@
    <extension
          point="org.eclipse.ui.splashHandlers">
       <splashHandler
-            class="com.gcsf.pcm.splashHandlers.InteractiveSplashHandler"
+            class="com.gcsf.pcm.handlers.splash.InteractiveSplashHandler"
             id="com.gcsf.pcm.splashHandlers.interactive">
       </splashHandler>
       <splashHandlerProductBinding
@@ -141,12 +141,14 @@
          <menu
                label="Help">
             <command
-                  commandId="org.eclipse.ui.views.showView"
+                  commandId="com.gcsf.pcm.command.showIntro"
+                  label="Welcome_Command"
                   style="push">
-               <parameter
-                     name="org.eclipse.ui.views.showView.viewId"
-                     value="org.eclipse.ui.internal.introView">
-               </parameter>
+            </command>
+            <command
+                  commandId="org.eclipse.ui.help.quickStartAction"
+                  label="Welcome_Action"
+                  style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.help.aboutAction"
@@ -229,6 +231,10 @@
             class="com.gcsf.pcm.handlers.group.EditGroupHandler"
             commandId="com.gcsf.pcm.commands.groups.editGroupCommand">
       </handler>
+      <handler
+            class="com.gcsf.pcm.handlers.IntroHandler"
+            commandId="com.gcsf.pcm.command.showIntro">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -310,6 +316,10 @@
             categoryId="com.gcsf.pcm.commands.category.group"
             id="com.gcsf.pcm.commands.groups.editGroupCommand"
             name="Edit Group Command">
+      </command>
+      <command
+            id="com.gcsf.pcm.command.showIntro"
+            name="Welcome Command">
       </command>
    </extension>
 

@@ -1,4 +1,4 @@
-package com.gcsf.pcm.splashHandlers;
+package com.gcsf.pcm.handlers.splash;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -316,6 +316,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     data.horizontalSpan = 2;
     fTextUsername.setLayoutData(data);
     fTextUsername.setEchoChar('*');
+    fTextUsername.setFocus();
   }
 
   /**
@@ -360,6 +361,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     getSplash().setLayout(layout);
     // Force shell to inherit the splash background
     getSplash().setBackgroundMode(SWT.INHERIT_DEFAULT);
+    getSplash().setFocus();
   }
 
 }
