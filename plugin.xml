@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="RCP Perspective"
-            class="com.gcsf.pcm.intro.Perspective"
+            class="com.gcsf.pcm.gui.GeneralPerspective"
             id="com.gcsf.pcm.perspective">
       </perspective>
    </extension>
@@ -24,14 +24,14 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="com.gcsf.pcm.application"
-            name="RCP Product">
+            name="Personal Contact Manager">
          <property
                name="windowImages"
                value="icons/alt_window_16.gif,icons/alt_window_32.gif,icons/alt_window_48.gif,icons/alt_window_64.gif,icons/alt_window_128.gif">
          </property>
          <property
                name="appName"
-               value="RCP Product">
+               value="Personal Contact Manager">
          </property>
          <property
                name="aboutImage"
@@ -47,6 +47,7 @@
          point="org.eclipse.ui.intro">
       <intro
             class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            icon="icons/welcome/welcome16.gif"
             id="com.gcsf.pcm.intro">
       </intro>
       <introProductBinding
@@ -72,7 +73,7 @@
    <extension
          point="org.eclipse.ui.splashHandlers">
       <splashHandler
-            class="com.gcsf.pcm.handlers.splash.InteractiveSplashHandler"
+            class="com.gcsf.pcm.splashHandlers.InteractiveSplashHandler"
             id="com.gcsf.pcm.splashHandlers.interactive">
       </splashHandler>
       <splashHandlerProductBinding
@@ -142,11 +143,13 @@
                label="Help">
             <command
                   commandId="com.gcsf.pcm.command.showIntro"
+                  icon="icons/welcome/welcome16.gif"
                   label="Welcome_Command"
                   style="push">
             </command>
             <command
                   commandId="org.eclipse.ui.help.quickStartAction"
+                  icon="icons/welcome/welcome16.gif"
                   label="Welcome_Action"
                   style="push">
             </command>
@@ -321,6 +324,51 @@
             id="com.gcsf.pcm.command.showIntro"
             name="Welcome Command">
       </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="com.gcsf.pcm.gui.GroupsView"
+            id="com.gcsf.pcm.view.groups"
+            name="Groups View"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="com.gcsf.pcm.gui.UsersView"
+            id="com.gcsf.pcm.view.users"
+            name="Users View"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.gcsf.pcm.perspective">
+         <view
+               closeable="false"
+               id="com.gcsf.pcm.view.groups"
+               minimized="false"
+               ratio="0.4f"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="com.gcsf.pcm.view.users"
+               minimized="false"
+               ratio="0.55f"
+               relationship="right"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+      </perspectiveExtension>
    </extension>
 
 </plugin>

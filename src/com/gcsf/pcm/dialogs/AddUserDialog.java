@@ -18,8 +18,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.views.IViewDescriptor;
 
 public class AddUserDialog extends Dialog {
 
@@ -63,11 +61,6 @@ public class AddUserDialog extends Dialog {
     Text emailText = new Text(dialogGroup, SWT.BORDER);
     emailText.setText("some text");
 
-    for (IViewDescriptor viewDescriptor : PlatformUI.getWorkbench()
-        .getViewRegistry().getViews()) {
-      System.out.println(viewDescriptor.toString());
-    }
-
     // Create a control decoration to indicate an error.
     ControlDecoration dec = new ControlDecoration(nameText, SWT.TOP | SWT.LEFT);
     FieldDecoration errorFieldIndicator = FieldDecorationRegistry.getDefault()
@@ -75,10 +68,6 @@ public class AddUserDialog extends Dialog {
     dec.setImage(errorFieldIndicator.getImage());
     dec.setDescriptionText(errorFieldIndicator.getDescription());
     dec.setMarginWidth(1);
-    // System.out
-    // .println(JFaceResources.getColorRegistry().getKeySet().toString());
-    // nameText.setBackground(JFaceResources.getColorRegistry().get(
-    // "org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_TEXT_COLOR"));
     // Set the layout data
     GridData data = new GridData(IDialogConstants.ENTRY_FIELD_WIDTH,
         SWT.DEFAULT);

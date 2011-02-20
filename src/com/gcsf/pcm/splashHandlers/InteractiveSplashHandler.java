@@ -1,4 +1,4 @@
-package com.gcsf.pcm.handlers.splash;
+package com.gcsf.pcm.splashHandlers;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;

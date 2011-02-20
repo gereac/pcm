@@ -2,34 +2,47 @@ package com.gcsf.pcm.model;
 
 public class User {
 
-	private String userName;
+  private String userName;
 
-	private String userPhone;
+  private String userPhone;
 
-	private String userEmail;
+  private String userEmail;
 
-	public String getUserName() {
-		return userName;
-	}
+  public User(String userName, String userPhone, String userEmail) {
+    super();
+    this.userName = userName;
+    this.userPhone = userPhone;
+    this.userEmail = userEmail;
+  }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+  public String getUserName() {
+    return userName;
+  }
 
-	public String getUserPhone() {
-		return userPhone;
-	}
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
-	}
+  public String getUserPhone() {
+    return userPhone;
+  }
 
-	public String getUserEmail() {
-		return userEmail;
-	}
+  public void setUserPhone(String userPhone) {
+    this.userPhone = userPhone;
+  }
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
+  public String getUserEmail() {
+    return userEmail;
+  }
+
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
+
+  @Override
+  public String toString() {
+    return "User [userName=" + userName + ", userPhone=" + userPhone
+        + ", userEmail=" + userEmail + "]";
+  }
 
 }
