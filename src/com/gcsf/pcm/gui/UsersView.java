@@ -1,7 +1,11 @@
 package com.gcsf.pcm.gui;
 
+import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -9,12 +13,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import com.gcsf.pcm.model.User;
-import com.gcsf.pcm.model.tableviewer.UsersProviderMock;
+import com.gcsf.pcm.model.UserGroup;
 
-public class UsersView extends ViewPart {
+public class UsersView extends ViewPart implements ISelectionListener {
 
   public static final String ID = "com.gcsf.pcm.view.users";
 
@@ -32,7 +39,7 @@ public class UsersView extends ViewPart {
     viewer.setContentProvider(new ArrayContentProvider());
     // Get the content for the viewer, setInput will call getElements in the
     // contentProvider
-    viewer.setInput(UsersProviderMock.INSTANCE.getUsers());
+    // viewer.setInput(UsersProviderMock.INSTANCE.getUsers());
     // Make the selection available to other views
     getSite().setSelectionProvider(viewer);
     // Set the sorter for the table
@@ -45,6 +52,9 @@ public class UsersView extends ViewPart {
     gridData.grabExcessVerticalSpace = true;
     gridData.horizontalAlignment = GridData.FILL;
     viewer.getControl().setLayoutData(gridData);
+
+    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService()
+        .addSelectionListener(this);
   }
 
   public TableViewer getViewer() {
@@ -55,6 +65,10 @@ public class UsersView extends ViewPart {
   private void createColumns(final Composite parent, final TableViewer viewer) {
     String[] titles = { "User Name", "User Phone", "User Email" };
     int[] bounds = { 100, 100, 100 };
+    int[] weights = { 30, 30, 30 };
+
+    TableColumnLayout tableColumnLayout = new TableColumnLayout();
+    parent.setLayout(tableColumnLayout);
 
     // First column is for the first name
     TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
@@ -65,6 +79,8 @@ public class UsersView extends ViewPart {
         return p.getUserName();
       }
     });
+    tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(
+        weights[0]));
 
     // Second column is for the last name
     col = createTableViewerColumn(titles[1], bounds[1], 1);
@@ -75,6 +91,8 @@ public class UsersView extends ViewPart {
         return p.getUserPhone();
       }
     });
+    tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(
+        weights[1]));
 
     // Now the gender
     col = createTableViewerColumn(titles[2], bounds[2], 2);
@@ -85,6 +103,8 @@ public class UsersView extends ViewPart {
         return p.getUserEmail();
       }
     });
+    tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(
+        weights[2]));
 
   }
 
@@ -104,6 +124,38 @@ public class UsersView extends ViewPart {
   @Override
   public void setFocus() {
     viewer.getControl().setFocus();
+  }
+
+  @Override
+  public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+    System.out.println("selection is : " + selection);
+    if (part != this) {
+      if (!selection.isEmpty()) {
+        if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
+          viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
+              .getFirstElement()).getGroupMembers());
+        } else {
+          // Item aItem = (Item) (((IStructuredSelection) selection)
+          // .getFirstElement());
+          // ArrayList<Item> aList = new ArrayList<Item>();
+          // aList.add(aItem);
+          // tableViewer.setInput(aList);
+          viewer.setInput(null);
+        }
+      } else {
+        viewer.setInput(null);
+      }
+    } else {
+      if (!selection.isEmpty()) {
+        // if (doubleClickOccured) {
+        // doubleClickOccured = false;
+        if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
+          viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
+              .getFirstElement()).getGroupMembers());
+          // }
+        }
+      }
+    }
   }
 
 }

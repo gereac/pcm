@@ -20,9 +20,15 @@ public class GroupsView extends ViewPart {
     viewer.setContentProvider(new UserGroupContentProvider());
     viewer.setLabelProvider(new UserGroupLabelProvider());
     // Expand the tree
-    viewer.setAutoExpandLevel(2);
+    viewer.setAutoExpandLevel(1);
     // Provide the input to the ContentProvider
-    viewer.setInput(new GroupsProviderMock());
+    viewer.setInput(GroupsProviderMock.getInstance());
+
+    getViewSite().setSelectionProvider(viewer);
+  }
+
+  public TreeViewer getViewer() {
+    return viewer;
   }
 
   /**
