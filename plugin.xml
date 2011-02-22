@@ -229,6 +229,14 @@
       <handler
             class="com.gcsf.pcm.handlers.group.DeleteGroupHandler"
             commandId="com.gcsf.pcm.commands.groups.deleteGroupCommand">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <instanceof
+                     value="com.gcsf.pcm.model.UserGroup">
+               </instanceof>
+            </with>
+         </enabledWhen>
       </handler>
       <handler
             class="com.gcsf.pcm.handlers.group.EditGroupHandler"

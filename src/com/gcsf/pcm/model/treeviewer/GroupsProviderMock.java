@@ -15,6 +15,7 @@ public class GroupsProviderMock {
   private GroupsProviderMock() {
     UserGroup usergroup = new UserGroup();
     usergroup.setGroupName("Group one");
+    usergroup.setGroupDescription("Group one description");
     usergroups.add(usergroup);
     User user = new User("Rainer", "12345", "a@a");
     usergroup.getGroupMembers().add(user);
@@ -25,6 +26,7 @@ public class GroupsProviderMock {
 
     usergroup = new UserGroup();
     usergroup.setGroupName("Group two");
+    usergroup.setGroupDescription("Group two description");
     usergroups.add(usergroup);
     user = new User("Holger", "456789", "d@d");
     usergroup.getGroupMembers().add(user);
@@ -33,6 +35,10 @@ public class GroupsProviderMock {
 
     usergroup = new UserGroup();
     usergroup.setGroupName("Group three");
+    usergroups.add(usergroup);
+    usergroup = new UserGroup();
+    usergroup.setGroupName("Group four");
+    usergroup.setGroupDescription("");
     usergroups.add(usergroup);
   }
 

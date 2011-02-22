@@ -20,6 +20,9 @@ import org.eclipse.ui.part.ViewPart;
 
 import com.gcsf.pcm.model.User;
 import com.gcsf.pcm.model.UserGroup;
+import com.gcsf.pcm.model.tableviewer.UserEmailEditingSupport;
+import com.gcsf.pcm.model.tableviewer.UserNameEditingSupport;
+import com.gcsf.pcm.model.tableviewer.UserPhoneEditingSupport;
 
 public class UsersView extends ViewPart implements ISelectionListener {
 
@@ -70,7 +73,7 @@ public class UsersView extends ViewPart implements ISelectionListener {
     TableColumnLayout tableColumnLayout = new TableColumnLayout();
     parent.setLayout(tableColumnLayout);
 
-    // First column is for the first name
+    // First column is for the name
     TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
     col.setLabelProvider(new ColumnLabelProvider() {
       @Override
@@ -81,8 +84,9 @@ public class UsersView extends ViewPart implements ISelectionListener {
     });
     tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(
         weights[0]));
+    col.setEditingSupport(new UserNameEditingSupport(viewer));
 
-    // Second column is for the last name
+    // Second column is for the phone
     col = createTableViewerColumn(titles[1], bounds[1], 1);
     col.setLabelProvider(new ColumnLabelProvider() {
       @Override
@@ -93,8 +97,9 @@ public class UsersView extends ViewPart implements ISelectionListener {
     });
     tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(
         weights[1]));
+    col.setEditingSupport(new UserPhoneEditingSupport(viewer));
 
-    // Now the gender
+    // Now the email
     col = createTableViewerColumn(titles[2], bounds[2], 2);
     col.setLabelProvider(new ColumnLabelProvider() {
       @Override
@@ -105,6 +110,7 @@ public class UsersView extends ViewPart implements ISelectionListener {
     });
     tableColumnLayout.setColumnData(col.getColumn(), new ColumnWeightData(
         weights[2]));
+    col.setEditingSupport(new UserEmailEditingSupport(viewer));
 
   }
 
@@ -129,30 +135,32 @@ public class UsersView extends ViewPart implements ISelectionListener {
   @Override
   public void selectionChanged(IWorkbenchPart part, ISelection selection) {
     System.out.println("selection is : " + selection);
-    if (part != this) {
-      if (!selection.isEmpty()) {
-        if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
-          viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
-              .getFirstElement()).getGroupMembers());
+    if (selection instanceof IStructuredSelection) {
+      if (part != this) {
+        if (!selection.isEmpty()) {
+          if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
+            viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
+                .getFirstElement()).getGroupMembers());
+          } else {
+            // Item aItem = (Item) (((IStructuredSelection) selection)
+            // .getFirstElement());
+            // ArrayList<Item> aList = new ArrayList<Item>();
+            // aList.add(aItem);
+            // tableViewer.setInput(aList);
+            viewer.setInput(null);
+          }
         } else {
-          // Item aItem = (Item) (((IStructuredSelection) selection)
-          // .getFirstElement());
-          // ArrayList<Item> aList = new ArrayList<Item>();
-          // aList.add(aItem);
-          // tableViewer.setInput(aList);
           viewer.setInput(null);
         }
       } else {
-        viewer.setInput(null);
-      }
-    } else {
-      if (!selection.isEmpty()) {
-        // if (doubleClickOccured) {
-        // doubleClickOccured = false;
-        if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
-          viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
-              .getFirstElement()).getGroupMembers());
-          // }
+        if (!selection.isEmpty()) {
+          // if (doubleClickOccured) {
+          // doubleClickOccured = false;
+          if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
+            viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
+                .getFirstElement()).getGroupMembers());
+            // }
+          }
         }
       }
     }

@@ -35,4 +35,10 @@ public class UserGroup {
     this.groupMembers = groupMembers;
   }
 
+  @Override
+  public String toString() {
+    return "UserGroup [groupName=" + groupName + ", groupDescription="
+        + groupDescription + ", groupMembers=" + groupMembers + "]";
+  }
+
 }
