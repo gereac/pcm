@@ -114,22 +114,36 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
         "Your username or password was wrong");
   }
 
-  // private void handleButtonOKWidgetSelected() {
-  // final String username = fTextUsername.getText();
-  // final String password = fTextPassword.getText();
-  //
-  // toggelCheckProgress(true);
-  // Thread t = new Thread() {
-  // public void run() {
-  // if( login(username,password) ) {
-  // loginStatus = 1;
-  // } else {
-  // loginStatus = 2;
-  // }
-  // }
-  // }
-  // t.start();
-  // }
+  private void handleButtonOKWidgetSelected() {
+    final String username = fTextUsername.getText();
+    final String password = fTextPassword.getText();
+
+    toggelCheckProgress(true);
+    Thread t = new Thread() {
+      public void run() {
+
+        if (username.equalsIgnoreCase("catalin")
+            && password.equalsIgnoreCase("gerea")) {
+          fAuthenticated = true;
+          loginStatus = 1;
+        } else {
+          loginStatus = 2;
+        }
+
+        // if( login(username,password) ) {
+        // loginStatus = 1;
+        // } else {
+        // loginStatus = 2;
+        // }
+      }
+    };
+    if ((username.length() > 0) && (password.length() > 0)) {
+      t.start();
+    } else {
+      MessageDialog.openError(getSplash(), "Authentication Failed", //$NON-NLS-1$
+          "A username and password must be specified to login."); //$NON-NLS-1$
+    }
+  }
 
   private void toggelCheckProgress(boolean state) {
     progressLabel.setVisible(state);
@@ -181,21 +195,21 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
   /**
 	 * 
 	 */
-  private void handleButtonOKWidgetSelected() {
-    String username = fTextUsername.getText();
-    String password = fTextPassword.getText();
-    // Aunthentication is successful if a user provides any username and
-    // any password
-    if ((username.length() > 0) && (password.length() > 0)) {
-      if (username.equalsIgnoreCase("catalin")
-          && password.equalsIgnoreCase("gerea")) {
-        fAuthenticated = true;
-      }
-    } else {
-      MessageDialog.openError(getSplash(), "Authentication Failed", //$NON-NLS-1$
-          "A username and password must be specified to login."); //$NON-NLS-1$
-    }
-  }
+  // private void handleButtonOKWidgetSelected() {
+  // String username = fTextUsername.getText();
+  // String password = fTextPassword.getText();
+  // // Aunthentication is successful if a user provides any username and
+  // // any password
+  // if ((username.length() > 0) && (password.length() > 0)) {
+  // if (username.equalsIgnoreCase("catalin")
+  // && password.equalsIgnoreCase("gerea")) {
+  // fAuthenticated = true;
+  // }
+  // } else {
+  //      MessageDialog.openError(getSplash(), "Authentication Failed", //$NON-NLS-1$
+  //          "A username and password must be specified to login."); //$NON-NLS-1$
+  // }
+  // }
 
   /**
 	 * 
@@ -225,7 +239,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 
   private void createProgressInfo() {
     progressLabel = new Label(fCompositeLogin, SWT.NONE);
-    progressLabel.setText("Ueberpreufung laeuft");
+    progressLabel.setText("Authentication in progress");
     GridData data = new GridData();
     data.horizontalIndent = F_LABEL_HORIZONTAL_INDENT - 50;
     progressLabel.setLayoutData(data);

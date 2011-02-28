@@ -10,6 +10,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.intro,
  org.eclipse.ui.forms,
  org.eclipse.ui.console,
- org.apache.commons.lang;bundle-version="2.3.0"
+ org.apache.commons.lang,
+ org.eclipse.core.expressions
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
