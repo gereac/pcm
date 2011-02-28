@@ -217,6 +217,11 @@
       <handler
             class="com.gcsf.pcm.handlers.user.DeleteUserHandler"
             commandId="com.gcsf.pcm.commands.users.deleteUserCommand">
+         <activeWhen>
+            <reference
+                  definitionId="oneUserSelectedInUserView">
+            </reference>
+         </activeWhen>
       </handler>
       <handler
             class="com.gcsf.pcm.handlers.user.EditUserHandler"
@@ -398,6 +403,28 @@
                   </instanceof>
                </iterate>
             </and>
+         </with>
+      </definition>
+      <definition
+            id="oneUserSelectedInUserView">
+         <with
+               variable="selection">
+            <and>
+               <count
+                     value="+">
+               </count>
+               <iterate
+                     operator="or">
+                  <instanceof
+                        value="com.gcsf.pcm.model.User">
+                  </instanceof>
+               </iterate>
+               <with
+                     variable="activePartId">
+                  <equals
+                        value="com.gcsf.pcm.view.users">
+                  </equals>
+               </with></and>
          </with>
       </definition>
    </extension>
