@@ -98,27 +98,6 @@
             </command>
          </menu>
          <menu
-               label="User">
-            <command
-                  commandId="com.gcsf.pcm.commands.users.addUserCommand"
-                  icon="icons/user/user_add.png"
-                  label="Add User"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
-                  icon="icons/user/user_delete.png"
-                  label="Delete User"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.gcsf.pcm.commands.users.editUserCommand"
-                  icon="icons/user/user_edit.png"
-                  label="Edit User"
-                  style="push">
-            </command>
-         </menu>
-         <menu
                label="Groups">
             <command
                   commandId="com.gcsf.pcm.commands.groups.addGroupCommand"
@@ -136,6 +115,27 @@
                   commandId="com.gcsf.pcm.commands.groups.editGroupCommand"
                   icon="icons/group/group_edit.png"
                   label="Edit group"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               label="User">
+            <command
+                  commandId="com.gcsf.pcm.commands.users.addUserCommand"
+                  icon="icons/user/user_add.png"
+                  label="Add User"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
+                  icon="icons/user/user_delete.png"
+                  label="Delete User"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.gcsf.pcm.commands.users.editUserCommand"
+                  icon="icons/user/user_edit.png"
+                  label="Edit User"
                   style="push">
             </command>
          </menu>
@@ -165,27 +165,6 @@
             allPopups="false"
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="com.gcsf.pcm.toolbars.user">
-            <command
-                  commandId="com.gcsf.pcm.commands.users.addUserCommand"
-                  icon="icons/user/user_add.png"
-                  label="Add User"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
-                  icon="icons/user/user_delete.png"
-                  label="Delete User"
-                  style="push">
-            </command>
-            <command
-                  commandId="com.gcsf.pcm.commands.users.editUserCommand"
-                  icon="icons/user/user_edit.png"
-                  label="Edit User"
-                  style="push">
-            </command>
-         </toolbar>
-         <toolbar
                id="com.gcsf.pcm.toolbars.group">
             <command
                   commandId="com.gcsf.pcm.commands.groups.addGroupCommand"
@@ -203,6 +182,27 @@
                   commandId="com.gcsf.pcm.commands.groups.editGroupCommand"
                   icon="icons/group/group_edit.png"
                   label="Edit group"
+                  style="push">
+            </command>
+         </toolbar>
+         <toolbar
+               id="com.gcsf.pcm.toolbars.user">
+            <command
+                  commandId="com.gcsf.pcm.commands.users.addUserCommand"
+                  icon="icons/user/user_add.png"
+                  label="Add User"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.gcsf.pcm.commands.users.deleteUserCommand"
+                  icon="icons/user/user_delete.png"
+                  label="Delete User"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.gcsf.pcm.commands.users.editUserCommand"
+                  icon="icons/user/user_edit.png"
+                  label="Edit User"
                   style="push">
             </command>
          </toolbar>
