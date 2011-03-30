@@ -14,8 +14,12 @@ public class GeneralPerspective implements IPerspectiveFactory {
   public static final String PERSPECTIVE_ID = "com.gcsf.pcm.perspective";
 
   public void createInitialLayout(IPageLayout layout) {
-    MessageConsole myConsole = new MessageConsole("Console", null); // declare
+    MessageConsole myConsole = new MessageConsole("Log Messages", null); // declare
     // console
+    // FontRegistry fontRegistry = new FontRegistry();
+    // fontRegistry.put("code", new FontData[] { new FontData("Courier New", 10,
+    // SWT.NORMAL) });
+    // myConsole.setFont(fontRegistry.get("Courier New"));
 
     ConsolePlugin.getDefault().getConsoleManager()
         .addConsoles(new IConsole[] { myConsole });

@@ -1,5 +1,8 @@
 package com.gcsf.pcm.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -40,9 +43,6 @@ public class UsersView extends ViewPart implements ISelectionListener {
     table.setLinesVisible(true);
 
     viewer.setContentProvider(new ArrayContentProvider());
-    // Get the content for the viewer, setInput will call getElements in the
-    // contentProvider
-    // viewer.setInput(UsersProviderMock.INSTANCE.getUsers());
     // Make the selection available to other views
     getSite().setSelectionProvider(viewer);
     // Set the sorter for the table
@@ -141,12 +141,12 @@ public class UsersView extends ViewPart implements ISelectionListener {
           if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
             viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
                 .getFirstElement()).getGroupMembers());
+          } else if ((((IStructuredSelection) selection).getFirstElement()) instanceof User) {
+            List<User> aList = new ArrayList<User>();
+            aList.add((User) ((IStructuredSelection) selection)
+                .getFirstElement());
+            viewer.setInput(aList);
           } else {
-            // Item aItem = (Item) (((IStructuredSelection) selection)
-            // .getFirstElement());
-            // ArrayList<Item> aList = new ArrayList<Item>();
-            // aList.add(aItem);
-            // tableViewer.setInput(aList);
             viewer.setInput(null);
           }
         } else {
@@ -154,16 +154,12 @@ public class UsersView extends ViewPart implements ISelectionListener {
         }
       } else {
         if (!selection.isEmpty()) {
-          // if (doubleClickOccured) {
-          // doubleClickOccured = false;
           if ((((IStructuredSelection) selection).getFirstElement()) instanceof UserGroup) {
             viewer.setInput(((UserGroup) ((IStructuredSelection) selection)
                 .getFirstElement()).getGroupMembers());
-            // }
           }
         }
       }
     }
   }
-
 }

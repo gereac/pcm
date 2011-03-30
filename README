@@ -1,0 +1,34 @@
+Build a user friendly eclipse RCP application that implements the follow features. 
+
+Code Name : Personal Contact Manager 
+
+I.        Login to the personal contact manager 
+II.        Create new user group 
+A.        Input Values 
+1.        Group Name 
+2.        Group Description 
+3.        Members 
+a)        Add/Delete users to a group 
+b)        Create a new user dialog to add a new user (name, phone, email) 
+III.        List Groups that are Owned by the current user 
+·        Allow users to make changes to existing groups 
+IV.        Bulk Update 
+·        Allow user to search and add/remove search results to one or more groups. 
+DONE --> V.        Delete group 
+DONE --> ·        Warn user before actually deleting the group 
+VI.        Add one or move of the optional features below 
+
+Optional Features 
+ONGOING --> I.        Allow user to drag and drop members between groups and/or any other place you find useful
+ -- trebuit adaugat suportul de cut/copy/paste
+ -- trebuie adaugat suportul de generic drag and drop
+ -- trebuit rezolvat bugul cu drop-ul de usergroup si alte mici buguri (e.g. update-ul de group-uri la drop sialtele pe care le vom gasi)
+II.        Use table editors to allow user to edit group details from bullet 2 above 
+III.        Be creative and implement any other useful feature.  Make sure you clearly identify the feature you added in the deliverables document 
+
+
+Deliverables 
+Submit a zip file containing the following items in a clearly labeled structure. 
+I.        Eclipse Workspace which includes source code 
+II.        Exported RCP Applications EXE 
+Document listing any special instructions

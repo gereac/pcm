@@ -28,12 +28,12 @@ public class UserEmailEditingSupport extends EditingSupport {
 
   @Override
   protected Object getValue(Object element) {
-    return ((User) element).getUserPhone();
+    return ((User) element).getUserEmail();
   }
 
   @Override
   protected void setValue(Object element, Object value) {
-    ((User) element).setUserPhone(String.valueOf(value));
+    ((User) element).setUserEmail(String.valueOf(value));
     viewer.refresh();
   }
 

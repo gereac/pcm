@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPage;
@@ -29,22 +30,30 @@ public class DeleteGroupHandler extends AbstractHandler {
    * from the application context.
    */
   public Object execute(ExecutionEvent event) throws ExecutionException {
-    IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
+    IWorkbenchWindow window = HandlerUtil
+        .getActiveWorkbenchWindowChecked(event);
     IWorkbenchPage page = window.getActivePage();
     GroupsView view = (GroupsView) page.findView(GroupsView.ID);
     ISelection selection = view.getSite().getSelectionProvider().getSelection();
+    IStructuredSelection sel = (IStructuredSelection) selection;
 
-    if (selection != null && selection instanceof IStructuredSelection) {
-      List<UserGroup> usergroups = GroupsProviderMock.getInstance()
-          .getUserGroups();
-      IStructuredSelection sel = (IStructuredSelection) selection;
+    boolean deleteConfirmation = MessageDialog.openConfirm(window.getShell(),
+        "Delete Group Confirmation",
+        "Are you sure that you want to delete the selected group(s)?");
 
-      for (Iterator<UserGroup> iterator = sel.iterator(); iterator.hasNext();) {
-        UserGroup usergroup = iterator.next();
-        usergroups.remove(usergroup);
+    if (deleteConfirmation) {
+      if (selection != null && selection instanceof IStructuredSelection) {
+        List<UserGroup> usergroups = GroupsProviderMock.getInstance()
+            .getUserGroups();
+
+        for (Iterator<UserGroup> iterator = sel.iterator(); iterator.hasNext();) {
+          UserGroup usergroup = iterator.next();
+          usergroups.remove(usergroup);
+        }
+        view.getViewer().refresh();
       }
-      view.getViewer().refresh();
     }
+
     return null;
 
   }

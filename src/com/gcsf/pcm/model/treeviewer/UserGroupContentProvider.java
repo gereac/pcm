@@ -3,6 +3,7 @@ package com.gcsf.pcm.model.treeviewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+import com.gcsf.pcm.model.User;
 import com.gcsf.pcm.model.UserGroup;
 
 public class UserGroupContentProvider implements ITreeContentProvider {
@@ -34,7 +35,18 @@ public class UserGroupContentProvider implements ITreeContentProvider {
 
   @Override
   public Object getParent(Object element) {
-    return null;
+    Object parent = null;
+    if (element instanceof User) {
+      for (UserGroup aGrp : model.getUserGroups()) {
+        for (User aUser : aGrp.getGroupMembers()) {
+          if (aUser.equals(element)) {
+            parent = aGrp;
+            break;
+          }
+        }
+      }
+    }
+    return parent;
   }
 
   @Override
