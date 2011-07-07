@@ -1,6 +1,6 @@
 package com.gcsf.pcm.model;
 
-public class User {
+public class User implements ITreeElement {
 
   private String userName;
 

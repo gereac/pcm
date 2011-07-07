@@ -130,11 +130,6 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
           loginStatus = 2;
         }
 
-        // if( login(username,password) ) {
-        // loginStatus = 1;
-        // } else {
-        // loginStatus = 2;
-        // }
       }
     };
     if ((username.length() > 0) && (password.length() > 0)) {

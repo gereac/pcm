@@ -4,7 +4,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
-import com.gcsf.pcm.gui.GroupsView;
+import com.gcsf.pcm.gui.ContactsView;
 import com.gcsf.pcm.model.UserGroup;
 import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 
@@ -29,17 +29,17 @@ public class AddGroupWizard extends Wizard {
 
   @Override
   public boolean performFinish() {
-    System.out.println(one.getText1());
-    System.out.println(one.getText2());
+    System.out.println(one.getTextName());
+    System.out.println(one.getTextDescription());
     GroupsProviderMock groups = GroupsProviderMock.getInstance();
     UserGroup aGroup = new UserGroup();
-    aGroup.setGroupName(one.getText1());
-    aGroup.setGroupDescription(one.getText2());
+    aGroup.setGroupName(one.getTextName());
+    aGroup.setGroupDescription(one.getTextDescription());
     groups.getUserGroups().add(aGroup);
     // Updating the display in the view
     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
         .getActivePage();
-    GroupsView view = (GroupsView) page.findView(GroupsView.ID);
+    ContactsView view = (ContactsView) page.findView(ContactsView.ID);
     view.getViewer().refresh();
     // just put the result to the console, imagine here much more
     // intelligent stuff.

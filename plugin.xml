@@ -351,9 +351,9 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="com.gcsf.pcm.gui.GroupsView"
+            class="com.gcsf.pcm.gui.ContactsView"
             id="com.gcsf.pcm.view.groups"
-            name="Groups View"
+            name="Contacts View"
             restorable="true">
       </view>
       <view
@@ -587,6 +587,12 @@
             class="com.gcsf.pcm.model.treeviewer.dnd.UserPluginDropAdapter"
             id="com.gcsf.pcm.dnd.gadgetDrop">
       </action>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.gcsf.pcm.persist.pref.PreferencesInitializer">
+      </initializer>
    </extension>
 
 </plugin>

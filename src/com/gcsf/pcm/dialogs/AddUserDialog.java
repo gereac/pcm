@@ -68,6 +68,7 @@ public class AddUserDialog extends Dialog {
     dec.setImage(errorFieldIndicator.getImage());
     dec.setDescriptionText(errorFieldIndicator.getDescription());
     dec.setMarginWidth(1);
+    dec.hide();
     // Set the layout data
     GridData data = new GridData(IDialogConstants.ENTRY_FIELD_WIDTH,
         SWT.DEFAULT);
@@ -82,7 +83,7 @@ public class AddUserDialog extends Dialog {
 
         evt.gc.setForeground(nameText.getDisplay()
             .getSystemColor(SWT.COLOR_RED));
-        evt.gc.drawRectangle(0, 0, s.x, s.y);
+        evt.gc.drawRectangle(0, 0, s.x - 5, s.y - 5);
         evt.gc.setForeground(c);
       }
     });

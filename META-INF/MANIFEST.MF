@@ -11,9 +11,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.intro,
  org.eclipse.ui.forms,
  org.eclipse.ui.console,
- org.apache.commons.lang,
  org.eclipse.core.expressions,
  org.eclipse.core.resources,
  org.eclipse.ui.views
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: lib/commons-lang-2.6.jar,
+ .

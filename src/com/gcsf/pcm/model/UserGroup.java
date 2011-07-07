@@ -6,7 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserGroup implements PropertyChangeListener {
+public class UserGroup implements PropertyChangeListener, ITreeElement {
 
   private String groupName;
 
