@@ -33,7 +33,7 @@ public class DeleteGroupHandler extends AbstractHandler {
     IWorkbenchWindow window = HandlerUtil
         .getActiveWorkbenchWindowChecked(event);
     IWorkbenchPage page = window.getActivePage();
-    ContactsView view = (ContactsView) page.findView(ContactsView.ID);
+    ContactsView view = (ContactsView) page.findView(ContactsView.VIEW_ID);
     ISelection selection = view.getSite().getSelectionProvider().getSelection();
     IStructuredSelection sel = (IStructuredSelection) selection;
 

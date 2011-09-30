@@ -39,7 +39,7 @@ public class AddGroupWizard extends Wizard {
     // Updating the display in the view
     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
         .getActivePage();
-    ContactsView view = (ContactsView) page.findView(ContactsView.ID);
+    ContactsView view = (ContactsView) page.findView(ContactsView.VIEW_ID);
     view.getViewer().refresh();
     // just put the result to the console, imagine here much more
     // intelligent stuff.

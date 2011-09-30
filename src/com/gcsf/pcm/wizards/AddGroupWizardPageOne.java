@@ -78,9 +78,15 @@ public class AddGroupWizardPageOne extends WizardPage {
 
       @Override
       public void keyReleased(KeyEvent e) {
+        if (e.doit == false) {
+          // event already consumed
+          return;
+        }
         if (!textName.getText().isEmpty()
             && !textDescription.getText().isEmpty()) {
           setPageComplete(true);
+        } else {
+          setPageComplete(false);
         }
       }
     });
@@ -123,6 +129,8 @@ public class AddGroupWizardPageOne extends WizardPage {
         if (!textDescription.getText().isEmpty()
             && !textName.getText().isEmpty()) {
           setPageComplete(true);
+        } else {
+          setPageComplete(false);
         }
       }
     });
@@ -155,6 +163,7 @@ public class AddGroupWizardPageOne extends WizardPage {
         } else {
           // hide the field decorator
           dec.hide();
+          textDescription.redraw();
         }
       }
     });
@@ -186,7 +195,18 @@ public class AddGroupWizardPageOne extends WizardPage {
     return textName.getText();
   }
 
-  public String getTextDescription() {
+  @Override
+public boolean canFlipToNextPage() {
+	// TODO Auto-generated method stub
+	return super.canFlipToNextPage();
+}
+
+@Override
+public boolean isPageComplete() {
+	return super.isPageComplete() && (!getTextName().isEmpty());
+}
+
+public String getTextDescription() {
     return textDescription.getText();
   }
 

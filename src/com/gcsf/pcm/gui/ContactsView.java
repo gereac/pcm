@@ -56,7 +56,7 @@ import com.gcsf.pcm.persist.pref.Preference;
 public class ContactsView extends ViewPart implements
     ITabbedPropertySheetPageContributor {
 
-  public static final String ID = "com.gcsf.pcm.view.groups";
+  public static final String VIEW_ID = "com.gcsf.pcm.view.groups";
 
   private TreeViewer treeViewer;
 
