@@ -28,6 +28,8 @@ public class AddGroupWizardPageOne extends WizardPage {
   private Text textDescription;
 
   private Composite container;
+  
+  private   ISummaryListener                mySummaryListener  = null;
 
   public AddGroupWizardPageOne() {
     super("First Page");
@@ -37,7 +39,6 @@ public class AddGroupWizardPageOne extends WizardPage {
 
   @Override
   public void createControl(Composite parent) {
-
     container = new Composite(parent, SWT.NULL);
     GridLayout layoutContainer = new GridLayout(1, false);
     layoutContainer.marginWidth = 0;
@@ -139,7 +140,6 @@ public class AddGroupWizardPageOne extends WizardPage {
     FieldDecoration errorFieldIndicator = FieldDecorationRegistry.getDefault()
         .getFieldDecoration(FieldDecorationRegistry.DEC_WARNING);
     dec.setImage(errorFieldIndicator.getImage());
-    // dec.setDescriptionText(errorFieldIndicator.getDescription());
     dec.setDescriptionText("the description cannot be longer than "
         + DESC_LENGTH + " characters");
     dec.setMarginWidth(1);
@@ -192,22 +192,32 @@ public class AddGroupWizardPageOne extends WizardPage {
   }
 
   public String getTextName() {
+    if (mySummaryListener != null) {
+      mySummaryListener.setTitle(textName.getText());
+    }
     return textName.getText();
   }
 
   @Override
-public boolean canFlipToNextPage() {
-	// TODO Auto-generated method stub
-	return super.canFlipToNextPage();
-}
+  public boolean canFlipToNextPage() {
+  	return super.canFlipToNextPage();
+  }
 
-@Override
-public boolean isPageComplete() {
-	return super.isPageComplete() && (!getTextName().isEmpty());
-}
+  @Override
+  public boolean isPageComplete() {
+  	return super.isPageComplete() && (!getTextName().isEmpty());
+  }
 
-public String getTextDescription() {
+  public String getTextDescription() {
+    if (mySummaryListener != null) {
+      mySummaryListener.setDescription(textDescription.getText());
+    }
     return textDescription.getText();
   }
+  
+  public void setSummaryListener(ISummaryListener aListener) {
+    mySummaryListener = aListener;
+  }
+
 
 }

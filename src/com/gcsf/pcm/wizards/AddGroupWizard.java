@@ -10,9 +10,11 @@ import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 
 public class AddGroupWizard extends Wizard {
 
-  private AddGroupWizardPageOne one;
+  private AddGroupWizardPageOne groupPage;
 
-  private AddGroupWizardPageTwo two;
+  private AddGroupWizardPageTwo usersPage;
+  
+  private AddGroupWizardPageThree summaryPage;
 
   public AddGroupWizard() {
     super();
@@ -21,28 +23,30 @@ public class AddGroupWizard extends Wizard {
 
   @Override
   public void addPages() {
-    one = new AddGroupWizardPageOne();
-    two = new AddGroupWizardPageTwo();
-    addPage(one);
-    addPage(two);
+    groupPage = new AddGroupWizardPageOne();
+    addPage(groupPage);
+    usersPage = new AddGroupWizardPageTwo();
+    addPage(usersPage);
+    summaryPage = new AddGroupWizardPageThree();
+    addPage(summaryPage);
+    
+    groupPage.setSummaryListener(summaryPage);
+    usersPage.setSummaryListener(summaryPage);
   }
 
   @Override
   public boolean performFinish() {
-    System.out.println(one.getTextName());
-    System.out.println(one.getTextDescription());
     GroupsProviderMock groups = GroupsProviderMock.getInstance();
     UserGroup aGroup = new UserGroup();
-    aGroup.setGroupName(one.getTextName());
-    aGroup.setGroupDescription(one.getTextDescription());
+    aGroup.setGroupName(groupPage.getTextName());
+    aGroup.setGroupDescription(groupPage.getTextDescription());
+    aGroup.getGroupMembers().addAll(usersPage.getSelectedUsers());
     groups.getUserGroups().add(aGroup);
     // Updating the display in the view
     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
         .getActivePage();
     ContactsView view = (ContactsView) page.findView(ContactsView.VIEW_ID);
     view.getViewer().refresh();
-    // just put the result to the console, imagine here much more
-    // intelligent stuff.
 
     return true;
   }

@@ -10,36 +10,43 @@ public class GroupsProviderMock {
 
   private static GroupsProviderMock ourInstance;
 
-  private List<UserGroup> usergroups = new ArrayList<UserGroup>();
+  private List<UserGroup> usergroupsList = new ArrayList<UserGroup>();
+  
+  private List<User> usersList = new ArrayList<User>();
 
   private GroupsProviderMock() {
     UserGroup usergroup = new UserGroup();
     usergroup.setGroupName("Group one");
     usergroup.setGroupDescription("Group one description");
-    usergroups.add(usergroup);
+    usergroupsList.add(usergroup);
     User user = new User("Rainer", "12345", "a@a");
     usergroup.getGroupMembers().add(user);
+    usersList.add(user);
     user = new User("Reiner", "23456", "b@b");
     usergroup.getGroupMembers().add(user);
+    usersList.add(user);
     user = new User("Marie", "34567", "c@c");
     usergroup.getGroupMembers().add(user);
+    usersList.add(user);
 
     usergroup = new UserGroup();
     usergroup.setGroupName("Group two");
     usergroup.setGroupDescription("Group two description");
-    usergroups.add(usergroup);
+    usergroupsList.add(usergroup);
     user = new User("Holger", "456789", "d@d");
     usergroup.getGroupMembers().add(user);
+    usersList.add(user);
     user = new User("Juliane", "567890", "e@e");
     usergroup.getGroupMembers().add(user);
+    usersList.add(user);
 
     usergroup = new UserGroup();
     usergroup.setGroupName("Group three");
-    usergroups.add(usergroup);
+    usergroupsList.add(usergroup);
     usergroup = new UserGroup();
     usergroup.setGroupName("Group four");
     usergroup.setGroupDescription("");
-    usergroups.add(usergroup);
+    usergroupsList.add(usergroup);
   }
 
   public static GroupsProviderMock getInstance() {
@@ -50,8 +57,11 @@ public class GroupsProviderMock {
   }
 
   public List<UserGroup> getUserGroups() {
-
-    return usergroups;
+    return usergroupsList;
+  }
+  
+  public List<User> getUsers(){
+    return usersList;
   }
 
 }

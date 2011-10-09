@@ -1,6 +1,6 @@
 package com.gcsf.pcm.model;
 
-public class User implements ITreeElement {
+public class User implements ITreeElement, Comparable<User> {
 
   private String userName;
 
@@ -43,6 +43,11 @@ public class User implements ITreeElement {
   public String toString() {
     return "User [userName=" + userName + ", userPhone=" + userPhone
         + ", userEmail=" + userEmail + "]";
+  }
+
+  @Override
+  public int compareTo(User aUser) {
+    return this.userName.compareTo(aUser.userName);
   }
 
 }
