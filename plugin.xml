@@ -234,6 +234,10 @@
       <handler
             class="com.gcsf.pcm.handlers.user.EditUserHandler"
             commandId="com.gcsf.pcm.commands.users.editUserCommand">
+         <activeWhen>
+            <reference
+                  definitionId="oneUserSelectedInUserView">
+            </reference></activeWhen>
       </handler>
       <handler
             class="com.gcsf.pcm.handlers.group.AddGroupHandler"
@@ -250,6 +254,11 @@
       <handler
             class="com.gcsf.pcm.handlers.group.EditGroupHandler"
             commandId="com.gcsf.pcm.commands.groups.editGroupCommand">
+         <activeWhen>
+            <reference
+                  definitionId="oneGroupSelectedInGroupView">
+            </reference>
+         </activeWhen>
       </handler>
       <handler
             class="com.gcsf.pcm.handlers.IntroHandler"

@@ -7,7 +7,7 @@ import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.gcsf.pcm.dialogs.AddUserDialog;
+import com.gcsf.pcm.dialogs.UserDetailsDialog;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -23,7 +23,7 @@ public class AddUserHandler extends AbstractHandler implements IHandler {
    */
   public Object execute(ExecutionEvent event) throws ExecutionException {
     Shell aShell = HandlerUtil.getActiveShell(event);
-    AddUserDialog dialog = new AddUserDialog(aShell);
+    UserDetailsDialog dialog = new UserDetailsDialog(aShell);
     if (dialog != null) {
       dialog.open();
     }

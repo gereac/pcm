@@ -46,10 +46,6 @@ public class AddGroupWizardPageTwo extends WizardPage {
 
   private Button addOne = null;
 
-  private Button addAll = null;
-
-  private Button removeAll = null;
-
   private Button removeOne = null;
   
   private   ISummaryListener mySummaryListener       = null;
@@ -127,7 +123,7 @@ public class AddGroupWizardPageTwo extends WizardPage {
     rowLayout.fill = true;
     buttonsComposite.setLayout(rowLayout);
     addOne = new Button(buttonsComposite, SWT.PUSH);
-    addOne.setText(">");
+    addOne.setText(">>>");
     addOne.setEnabled(false);
     addOne.addSelectionListener(new SelectionListener() {
       
@@ -146,12 +142,8 @@ public class AddGroupWizardPageTwo extends WizardPage {
         
       }
     });
-    addAll = new Button(buttonsComposite, SWT.PUSH);
-    addAll.setText(">>>");
-    removeAll = new Button(buttonsComposite, SWT.PUSH);
-    removeAll.setText("<<<");
     removeOne = new Button(buttonsComposite, SWT.PUSH);
-    removeOne.setText("<");
+    removeOne.setText("<<<");
     removeOne.setEnabled(false);
     removeOne.addSelectionListener(new SelectionListener() {
       
@@ -185,7 +177,7 @@ public class AddGroupWizardPageTwo extends WizardPage {
 
     selectedUsersViewer = new TableViewer(selectedUsersComposite, SWT.MULTI
         | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-    createColumns(selectedUsersComposite, allUsersViewer);
+    createColumns(selectedUsersComposite, selectedUsersViewer);
     final Table selectedUsersTable = selectedUsersViewer.getTable();
     selectedUsersTable.setHeaderVisible(false);
     selectedUsersTable.setLinesVisible(false);
@@ -207,7 +199,7 @@ public class AddGroupWizardPageTwo extends WizardPage {
     parent.setLayout(tableColumnLayout);
 
     // First column is for the name
-    TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+    TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0, viewer);
     col.setLabelProvider(new ColumnLabelProvider() {
       @Override
       public String getText(Object element) {
@@ -219,7 +211,7 @@ public class AddGroupWizardPageTwo extends WizardPage {
         weights[0]));
 
     // Now the email
-    col = createTableViewerColumn(titles[1], bounds[1], 1);
+    col = createTableViewerColumn(titles[1], bounds[1], 1, viewer);
     col.setLabelProvider(new ColumnLabelProvider() {
       @Override
       public String getText(Object element) {
@@ -232,9 +224,9 @@ public class AddGroupWizardPageTwo extends WizardPage {
   }
 
   private TableViewerColumn createTableViewerColumn(String title, int bound,
-      final int colNumber) {
+      final int colNumber, TableViewer viewer) {
     final TableViewerColumn viewerColumn = new TableViewerColumn(
-        allUsersViewer, SWT.NONE);
+        viewer, SWT.NONE);
     final TableColumn column = viewerColumn.getColumn();
     column.setText(title);
     column.setWidth(bound);

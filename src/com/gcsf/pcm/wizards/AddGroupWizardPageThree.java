@@ -100,20 +100,20 @@ public class AddGroupWizardPageThree extends WizardPage implements ISummaryListe
     setControl(container);
   }
 
-  public void setTitle(String title) {
-//    if(title != null && !title.equals("")){
-//      groupTitleText.setText(title);
-//    } else {
-//      groupTitleText.setText("");
-//    }
+  public void setGroupTitle(String title) {
+    if(title != null && !title.equals("")){
+      groupTitleText.setText(title);
+    } else {
+      groupTitleText.setText("");
+    }
   }
   
-  public void setDescription(String description) {
-//    if(description != null && !description.equals("")){
-//      groupDescriptionText.setText(description);
-//    } else {
-//      groupDescriptionText.setText("");
-//    }
+  public void setGroupDescription(String description) {
+    if(description != null && !description.equals("")){
+      groupDescriptionText.setText(description);
+    } else {
+      groupDescriptionText.setText("");
+    }
   }
 
   public void setUsers(java.util.List<User> users) {

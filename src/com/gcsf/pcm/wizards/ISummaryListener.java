@@ -6,9 +6,9 @@ import com.gcsf.pcm.model.User;
 
 public interface ISummaryListener {
 
-  public void setTitle(String title);
+  public void setGroupTitle(String title);
   
-  public void setDescription(String description);
+  public void setGroupDescription(String description);
 
   /**
    * Set users.

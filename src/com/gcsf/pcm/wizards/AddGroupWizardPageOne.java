@@ -83,8 +83,8 @@ public class AddGroupWizardPageOne extends WizardPage {
           // event already consumed
           return;
         }
-        if (!textName.getText().isEmpty()
-            && !textDescription.getText().isEmpty()) {
+        if (!getTextName().isEmpty()
+            && !getTextDescription().isEmpty()) {
           setPageComplete(true);
         } else {
           setPageComplete(false);
@@ -127,8 +127,8 @@ public class AddGroupWizardPageOne extends WizardPage {
 
       @Override
       public void keyReleased(KeyEvent e) {
-        if (!textDescription.getText().isEmpty()
-            && !textName.getText().isEmpty()) {
+        if (!getTextDescription().isEmpty()
+            && !getTextName().isEmpty()) {
           setPageComplete(true);
         } else {
           setPageComplete(false);
@@ -151,7 +151,7 @@ public class AddGroupWizardPageOne extends WizardPage {
           // event already consumed
           return;
         }
-        if (textDescription.getText().length() > DESC_LENGTH) {
+        if (getTextDescription().length() > DESC_LENGTH) {
           // show the field decorator
           dec.show();
           textDescription.redraw();
@@ -169,7 +169,7 @@ public class AddGroupWizardPageOne extends WizardPage {
     });
     textDescription.addPaintListener(new PaintListener() {
       public void paintControl(PaintEvent evt) {
-        if (textDescription.getText().length() > DESC_LENGTH) {
+        if (getTextDescription().length() > DESC_LENGTH) {
           Point s = textDescription.getSize();
           Color c = evt.gc.getForeground();
           evt.gc.setForeground(textDescription.getDisplay().getSystemColor(
@@ -193,14 +193,9 @@ public class AddGroupWizardPageOne extends WizardPage {
 
   public String getTextName() {
     if (mySummaryListener != null) {
-      mySummaryListener.setTitle(textName.getText());
+      mySummaryListener.setGroupTitle(textName.getText());
     }
     return textName.getText();
-  }
-
-  @Override
-  public boolean canFlipToNextPage() {
-  	return super.canFlipToNextPage();
   }
 
   @Override
@@ -210,7 +205,7 @@ public class AddGroupWizardPageOne extends WizardPage {
 
   public String getTextDescription() {
     if (mySummaryListener != null) {
-      mySummaryListener.setDescription(textDescription.getText());
+      mySummaryListener.setGroupDescription(textDescription.getText());
     }
     return textDescription.getText();
   }

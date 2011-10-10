@@ -3,15 +3,15 @@ Build a user friendly eclipse RCP application that implements the follow feature
 Code Name : Personal Contact Manager 
 
 DONE --> I.        Login to the personal contact manager 
-	-- ar trebui sa faca de fapt login la gmail/yahoo mail
-	-- ar trebui sa aiba un check box de genul 'remember user name and password'
-II.        Create new user group 
-A.        Input Values 
-1.        Group Name 
-2.        Group Description 
-3.        Members 
+	 -- ar trebui sa faca de fapt login la gmail/yahoo mail
+	 -- ar trebui sa aiba un check box de genul 'remember user name and password'
+DONE --> II.        Create new user group 
+DONE --> A.        Input Values 
+DONE --> 1.        Group Name 
+DONE --> 2.        Group Description 
+DONE --> 3.        Members 
 a)        Add/Delete users to a group 
-b)        Create a new user dialog to add a new user (name, phone, email) 
+DONE --> b)        Create a new user dialog to add a new user (name, phone, email) 
 III.        List Groups that are Owned by the current user 
 ·        Allow users to make changes to existing groups 
 IV.        Bulk Update 

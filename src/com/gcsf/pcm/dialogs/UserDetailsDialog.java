@@ -6,10 +6,6 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.PaintEvent;
-import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -19,17 +15,39 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class AddUserDialog extends Dialog {
+import com.gcsf.pcm.model.User;
+import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 
-  private String SHELL_TITLE = " Add user - dialog";
+public class UserDetailsDialog extends Dialog {
 
-  public AddUserDialog(Shell parentShell) {
+  private String ADD_SHELL_TITLE = " Add user - dialog";
+  
+  private String EDIT_SHELL_TITLE = " Edit user - dialog";
+  
+  User user = null;
+  
+  Text nameText = null;
+  
+  Text phoneText = null;
+  
+  Text emailText = null;
+
+  public UserDetailsDialog(Shell parentShell) {
     super(parentShell);
+  }
+  
+  public UserDetailsDialog(Shell parentShell, User aUser) {
+    super(parentShell);
+    this.user = aUser;
   }
 
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(SHELL_TITLE);
+    if(user == null){
+      newShell.setText(ADD_SHELL_TITLE);
+    } else {
+      newShell.setText(EDIT_SHELL_TITLE);
+    }
   }
 
   @Override
@@ -39,7 +57,11 @@ public class AddUserDialog extends Dialog {
     composite.setLayout(new GridLayout());
 
     Group dialogGroup = new Group(parent, SWT.NONE);
-    dialogGroup.setText("Add User Details");
+    if(user == null){
+      dialogGroup.setText(ADD_SHELL_TITLE);
+    } else {
+      dialogGroup.setText(EDIT_SHELL_TITLE);
+    }
     GridLayout groupLayout = new GridLayout(2, false);
     dialogGroup.setLayout(groupLayout);
     GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
@@ -50,16 +72,28 @@ public class AddUserDialog extends Dialog {
 
     Label nameLabel = new Label(dialogGroup, SWT.LEFT);
     nameLabel.setText("User Name: ");
-    final Text nameText = new Text(dialogGroup, SWT.BORDER);
-    nameText.setText("some text");
+    nameText = new Text(dialogGroup, SWT.BORDER);
+    if(user == null){
+      nameText.setText("");
+    } else {
+      nameText.setText(user.getUserName());
+    }
     Label phoneLabel = new Label(dialogGroup, SWT.LEFT);
     phoneLabel.setText("User Phone: ");
-    Text phoneText = new Text(dialogGroup, SWT.BORDER);
-    phoneText.setText("some text");
+    phoneText = new Text(dialogGroup, SWT.BORDER);
+    if(user == null){
+      phoneText.setText("");
+    } else {
+      phoneText.setText(user.getUserName());
+    }
     Label emailLabel = new Label(dialogGroup, SWT.LEFT);
     emailLabel.setText("User Email: ");
-    Text emailText = new Text(dialogGroup, SWT.BORDER);
-    emailText.setText("some text");
+    emailText = new Text(dialogGroup, SWT.BORDER);
+    if(user == null){
+      emailText.setText("");
+    } else {
+      emailText.setText(user.getUserName());
+    }
 
     // Create a control decoration to indicate an error.
     ControlDecoration dec = new ControlDecoration(nameText, SWT.TOP | SWT.LEFT);
@@ -76,18 +110,24 @@ public class AddUserDialog extends Dialog {
         .getMaximumDecorationWidth();
     nameText.setLayoutData(data);
 
-    nameText.addPaintListener(new PaintListener() {
-      public void paintControl(PaintEvent evt) {
-        Point s = nameText.getSize();
-        Color c = evt.gc.getForeground();
-
-        evt.gc.setForeground(nameText.getDisplay()
-            .getSystemColor(SWT.COLOR_RED));
-        evt.gc.drawRectangle(0, 0, s.x - 5, s.y - 5);
-        evt.gc.setForeground(c);
-      }
-    });
+//    nameText.addPaintListener(new PaintListener() {
+//      public void paintControl(PaintEvent evt) {
+//        Point s = nameText.getSize();
+//        Color c = evt.gc.getForeground();
+//
+//        evt.gc.setForeground(nameText.getDisplay()
+//            .getSystemColor(SWT.COLOR_RED));
+//        evt.gc.drawRectangle(0, 0, s.x - 5, s.y - 5);
+//        evt.gc.setForeground(c);
+//      }
+//    });
 
     return super.createContents(parent);
+  }
+
+  @Override
+  protected void okPressed() {
+    GroupsProviderMock.getInstance().getUsers().add(new User(nameText.getText(), phoneText.getText(), emailText.getText()));
+    super.okPressed();
   }
 }
