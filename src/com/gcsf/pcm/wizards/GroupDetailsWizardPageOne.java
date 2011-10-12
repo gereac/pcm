@@ -19,7 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class AddGroupWizardPageOne extends WizardPage {
+public class GroupDetailsWizardPageOne extends WizardPage {
 
   private static final int DESC_LENGTH = 15;
 
@@ -31,7 +31,7 @@ public class AddGroupWizardPageOne extends WizardPage {
   
   private   ISummaryListener                mySummaryListener  = null;
 
-  public AddGroupWizardPageOne() {
+  public GroupDetailsWizardPageOne() {
     super("First Page");
     setTitle("Group details");
     setDescription("Please complete the group details.");

@@ -31,7 +31,6 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
   }
 
   public void setGroupName(String groupName) {
-    // this.groupName = groupName;
     propertyChangeSupport.firePropertyChange("groupName", this.groupName,
         this.groupName = groupName);
 
@@ -42,7 +41,6 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
   }
 
   public void setGroupDescription(String groupDescription) {
-    // this.groupDescription = groupDescription;
     propertyChangeSupport.firePropertyChange("groupDescription",
         this.groupDescription, this.groupDescription = groupDescription);
   }
@@ -52,7 +50,6 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
   }
 
   public void setGroupMembers(List<User> groupMembers) {
-    // this.groupMembers = groupMembers;
     propertyChangeSupport.firePropertyChange("groupMembers", this.groupMembers,
         this.groupMembers = groupMembers);
   }

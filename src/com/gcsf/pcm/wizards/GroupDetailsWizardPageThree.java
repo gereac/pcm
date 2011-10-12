@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Text;
 import com.gcsf.pcm.model.User;
 import com.gcsf.pcm.utils.SuppressKeyboardListener;
 
-public class AddGroupWizardPageThree extends WizardPage implements ISummaryListener {
+public class GroupDetailsWizardPageThree extends WizardPage implements ISummaryListener {
   
   private Composite container;
   private Composite groupInfoComposite;
@@ -24,7 +24,7 @@ public class AddGroupWizardPageThree extends WizardPage implements ISummaryListe
   
   private Text groupDescriptionText = null;
 
-  protected AddGroupWizardPageThree() {
+  protected GroupDetailsWizardPageThree() {
     super("Page Three");
     setTitle("Summary for group addition/editing");
     setDescription("These are the details inserted by you");

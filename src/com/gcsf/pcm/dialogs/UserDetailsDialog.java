@@ -1,5 +1,7 @@
 package com.gcsf.pcm.dialogs;
 
+import org.eclipse.core.databinding.observable.AbstractObservable;
+import org.eclipse.core.databinding.observable.list.WritableList;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -16,13 +18,14 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.gcsf.pcm.model.User;
-import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 
 public class UserDetailsDialog extends Dialog {
 
   private String ADD_SHELL_TITLE = " Add user - dialog";
   
   private String EDIT_SHELL_TITLE = " Edit user - dialog";
+  
+  private AbstractObservable myAbstractObservable = null;
   
   User user = null;
   
@@ -34,6 +37,11 @@ public class UserDetailsDialog extends Dialog {
 
   public UserDetailsDialog(Shell parentShell) {
     super(parentShell);
+  }
+  
+  public UserDetailsDialog(Shell parentShell, AbstractObservable aAbstractObservable) {
+    super(parentShell);
+    this.myAbstractObservable = aAbstractObservable;
   }
   
   public UserDetailsDialog(Shell parentShell, User aUser) {
@@ -127,7 +135,7 @@ public class UserDetailsDialog extends Dialog {
 
   @Override
   protected void okPressed() {
-    GroupsProviderMock.getInstance().getUsers().add(new User(nameText.getText(), phoneText.getText(), emailText.getText()));
+   ((WritableList)myAbstractObservable).add(new User(nameText.getText(), phoneText.getText(), emailText.getText()));
     super.okPressed();
   }
 }

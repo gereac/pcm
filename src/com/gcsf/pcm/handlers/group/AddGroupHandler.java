@@ -6,7 +6,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import com.gcsf.pcm.wizards.AddGroupWizard;
+import com.gcsf.pcm.wizards.GroupDetailsWizard;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -33,7 +33,7 @@ public class AddGroupHandler extends AbstractHandler {
     // view.getViewer().refresh();
     // }
 
-    AddGroupWizard wizard = new AddGroupWizard();
+    GroupDetailsWizard wizard = new GroupDetailsWizard();
     wizard.setWindowTitle("Add Group Wizard");
     WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event),
         wizard);

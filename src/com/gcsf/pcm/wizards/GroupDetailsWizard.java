@@ -8,26 +8,26 @@ import com.gcsf.pcm.gui.ContactsView;
 import com.gcsf.pcm.model.UserGroup;
 import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 
-public class AddGroupWizard extends Wizard {
+public class GroupDetailsWizard extends Wizard {
 
-  private AddGroupWizardPageOne groupPage;
+  private GroupDetailsWizardPageOne groupPage;
 
-  private AddGroupWizardPageTwo usersPage;
+  private GroupDetailsWizardPageTwo usersPage;
   
-  private AddGroupWizardPageThree summaryPage;
+  private GroupDetailsWizardPageThree summaryPage;
 
-  public AddGroupWizard() {
+  public GroupDetailsWizard() {
     super();
     setNeedsProgressMonitor(true);
   }
 
   @Override
   public void addPages() {
-    groupPage = new AddGroupWizardPageOne();
+    groupPage = new GroupDetailsWizardPageOne();
     addPage(groupPage);
-    usersPage = new AddGroupWizardPageTwo();
+    usersPage = new GroupDetailsWizardPageTwo();
     addPage(usersPage);
-    summaryPage = new AddGroupWizardPageThree();
+    summaryPage = new GroupDetailsWizardPageThree();
     addPage(summaryPage);
     
     groupPage.setSummaryListener(summaryPage);

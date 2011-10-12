@@ -1,5 +1,8 @@
 package com.gcsf.pcm.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class User implements ITreeElement, Comparable<User> {
 
   private String userName;
@@ -8,11 +11,23 @@ public class User implements ITreeElement, Comparable<User> {
 
   private String userEmail;
 
+  private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
+      this);
+
   public User(String userName, String userPhone, String userEmail) {
     super();
     this.userName = userName;
     this.userPhone = userPhone;
     this.userEmail = userEmail;
+  }
+  
+  public void addPropertyChangeListener(String propertyName,
+      PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+  }
+
+  public void removePropertyChangeListener(PropertyChangeListener listener) {
+    propertyChangeSupport.removePropertyChangeListener(listener);
   }
 
   public String getUserName() {
@@ -20,7 +35,8 @@ public class User implements ITreeElement, Comparable<User> {
   }
 
   public void setUserName(String userName) {
-    this.userName = userName;
+    propertyChangeSupport.firePropertyChange("userName", this.userName,
+        this.userName = userName);
   }
 
   public String getUserPhone() {
@@ -28,7 +44,8 @@ public class User implements ITreeElement, Comparable<User> {
   }
 
   public void setUserPhone(String userPhone) {
-    this.userPhone = userPhone;
+    propertyChangeSupport.firePropertyChange("userPhone", this.userPhone,
+        this.userPhone = userPhone);
   }
 
   public String getUserEmail() {
@@ -36,7 +53,8 @@ public class User implements ITreeElement, Comparable<User> {
   }
 
   public void setUserEmail(String userEmail) {
-    this.userEmail = userEmail;
+    propertyChangeSupport.firePropertyChange("userEmail", this.userEmail,
+        this.userEmail = userEmail);
   }
 
   @Override

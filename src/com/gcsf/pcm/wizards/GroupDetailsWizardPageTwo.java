@@ -1,9 +1,11 @@
 package com.gcsf.pcm.wizards;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.observable.list.WritableList;
+import org.eclipse.jface.databinding.viewers.ViewerSupport;
 import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -27,30 +29,38 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import com.gcsf.pcm.Activator;
+import com.gcsf.pcm.dialogs.UserDetailsDialog;
 import com.gcsf.pcm.model.User;
 import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 
-public class AddGroupWizardPageTwo extends WizardPage {
+public class GroupDetailsWizardPageTwo extends WizardPage {
 
   private Composite container;
+  
+  private Composite allUsersComposite = null;
+  
+  private Composite buttonsComposite = null;
+  
+  private Composite newUserComposite = null;
+  
+  private Composite selectedUsersComposite = null;
 
   private TableViewer allUsersViewer;
 
   private TableViewer selectedUsersViewer;
-
-  private Composite selectedUsersComposite = null;
-
-  private Composite buttonsComposite = null;
-
-  private Composite allUsersComposite = null;
+  
+  private WritableList allUsersInput;
 
   private Button addOne = null;
 
   private Button removeOne = null;
   
+  private Button newUser = null;
+  
   private   ISummaryListener mySummaryListener       = null;
 
-  public AddGroupWizardPageTwo() {
+  public GroupDetailsWizardPageTwo() {
     super("Second Page");
     setTitle("Users details");
     setDescription("Please complete the users details.");
@@ -70,7 +80,7 @@ public class AddGroupWizardPageTwo extends WizardPage {
     gridLayout.verticalSpacing = 0;
     gridLayout.horizontalSpacing = 0;
     allUsersComposite.setLayout(gridLayout);
-    GridData gridData = new GridData(SWT.BEGINNING, SWT.FILL, false, false);
+    GridData gridData = new GridData(SWT.BEGINNING, SWT.FILL, false, true);
     gridData.widthHint = SWT.DEFAULT;
     gridData.heightHint = SWT.DEFAULT;
     allUsersComposite.setLayoutData(gridData);
@@ -82,8 +92,15 @@ public class AddGroupWizardPageTwo extends WizardPage {
     allUsersTable.setHeaderVisible(false);
     allUsersTable.setLinesVisible(false);
 
-    allUsersViewer.setContentProvider(new ArrayContentProvider());
-    allUsersViewer.setInput(GroupsProviderMock.getInstance().getUsers());
+    //allUsersViewer.setContentProvider(new ArrayContentProvider());
+    //allUsersViewer.setInput(GroupsProviderMock.getInstance().getUsers());
+    
+    allUsersInput = new WritableList(GroupsProviderMock.getInstance().getUsers(), User.class);
+    ViewerSupport.bind(
+        allUsersViewer,
+        allUsersInput,
+        BeanProperties.values(new String[] { "userName", "userPhone",
+            "userEmail" }));
 
     allUsersViewer.addDoubleClickListener(new IDoubleClickListener() {
 
@@ -183,6 +200,38 @@ public class AddGroupWizardPageTwo extends WizardPage {
     selectedUsersTable.setLinesVisible(false);
 
     selectedUsersViewer.setContentProvider(new ArrayContentProvider());
+    
+    newUserComposite = new Composite(container, SWT.NULL);
+    GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, false, false);
+    gridData2.widthHint = SWT.DEFAULT;
+    gridData2.heightHint = SWT.DEFAULT;
+    newUserComposite.setLayoutData(gridData2);
+    GridLayout gridLayout2 = new GridLayout(1, false);
+    gridLayout2.marginWidth = 5;
+    gridLayout2.marginHeight = 5;
+    gridLayout2.verticalSpacing = 0;
+    gridLayout2.horizontalSpacing = 0;
+    newUserComposite.setLayout(gridLayout2);
+    
+    newUser = new Button(newUserComposite, SWT.PUSH);
+    newUser.setImage(Activator.getImageDescriptor("/icons/user/user_add.png").createImage());
+    newUser.setText("Add new user");
+    newUser.addSelectionListener(new SelectionListener() {
+      
+      @Override
+      public void widgetSelected(SelectionEvent event) {
+        UserDetailsDialog dialog = new UserDetailsDialog(container.getShell(), allUsersInput);
+        if (dialog != null) {
+          dialog.open();
+        }
+      }
+      
+      @Override
+      public void widgetDefaultSelected(SelectionEvent e) {
+        // TODO Auto-generated method stub
+        
+      }
+    });
 
     // Required to avoid an error in the system
     setControl(container);
@@ -256,9 +305,6 @@ public class AddGroupWizardPageTwo extends WizardPage {
         .toList()) {
         destinationInput.add(data);
         sourceInput.remove(data);
-    }
-    if (sourceInput != null) {
-      Collections.sort(sourceInput);
     }
     aSource.setInput(sourceInput);
     aDestination.setInput(destinationInput);
