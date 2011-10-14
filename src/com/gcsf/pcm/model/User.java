@@ -21,6 +21,10 @@ public class User implements ITreeElement, Comparable<User> {
     this.userEmail = userEmail;
   }
   
+  public User() {
+    super();
+  }
+
   public void addPropertyChangeListener(String propertyName,
       PropertyChangeListener listener) {
     propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
