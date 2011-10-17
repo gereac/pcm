@@ -5,11 +5,11 @@ import java.beans.PropertyChangeSupport;
 
 public class User implements ITreeElement, Comparable<User> {
 
-  private String userName;
+  private String userName = "";
 
-  private String userPhone;
+  private String userPhone = "";
 
-  private String userEmail;
+  private String userEmail = "";
 
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
       this);

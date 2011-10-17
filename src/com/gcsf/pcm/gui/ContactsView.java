@@ -3,6 +3,7 @@ package com.gcsf.pcm.gui;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IStatusLineManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -384,5 +385,15 @@ public class ContactsView extends ViewPart implements
     setSearchBarVisible(true);
     fSearchBar.getControl().setFocus();
   }
+  
+  public void updateStatusBar(){
+    IStatusLineManager statusLine = this.getViewSite().getActionBars().getStatusLineManager();
+    StringBuffer buf = new StringBuffer();
+    buf.append("Groups number: ");
+    buf.append(GroupsProviderMock.getInstance().getUserGroups().size());
+    buf.append(" . Users number: ");
+    buf.append(GroupsProviderMock.getInstance().getUsers().size());
+    statusLine.setMessage(buf.toString());
+} 
 
 }

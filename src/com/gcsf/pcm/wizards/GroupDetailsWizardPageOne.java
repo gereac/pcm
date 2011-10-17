@@ -40,37 +40,17 @@ public class GroupDetailsWizardPageOne extends WizardPage {
   @Override
   public void createControl(Composite parent) {
     container = new Composite(parent, SWT.NULL);
-    GridLayout layoutContainer = new GridLayout(1, false);
-    layoutContainer.marginWidth = 0;
-    layoutContainer.marginHeight = 0;
-    layoutContainer.verticalSpacing = 0;
-    layoutContainer.horizontalSpacing = 0;
+    GridLayout layoutContainer = new GridLayout(2, false);
     container.setLayout(layoutContainer);
     GridData gridDataContainer = new GridData(SWT.FILL, SWT.FILL, true, true);
     gridDataContainer.widthHint = SWT.DEFAULT;
     gridDataContainer.heightHint = SWT.DEFAULT;
     container.setLayoutData(gridDataContainer);
 
-    Composite upperComposite = new Composite(container, SWT.NULL);
-    GridLayout layout = new GridLayout(2, false);
-    layout.marginWidth = 0;
-    layout.marginHeight = 0;
-    layout.verticalSpacing = 0;
-    layout.horizontalSpacing = 0;
-    upperComposite.setLayout(layout);
-    GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
-    gridData.widthHint = SWT.DEFAULT;
-    gridData.heightHint = SWT.DEFAULT;
-    upperComposite.setLayoutData(gridData);
-
-    Label labelName = new Label(upperComposite, SWT.NULL);
+    Label labelName = new Label(container, SWT.LEFT);
     labelName.setText("Group Name");
-    GridData gridData2 = new GridData(SWT.LEFT, SWT.TOP, false, false);
-    gridData2.widthHint = SWT.DEFAULT;
-    gridData2.heightHint = SWT.DEFAULT;
-    labelName.setLayoutData(gridData2);
 
-    textName = new Text(upperComposite, SWT.BORDER | SWT.SINGLE);
+    textName = new Text(container, SWT.BORDER | SWT.SINGLE);
     textName.setText("");
     textName.addKeyListener(new KeyListener() {
       @Override
@@ -91,26 +71,12 @@ public class GroupDetailsWizardPageOne extends WizardPage {
         }
       }
     });
-    GridData gd = new GridData(SWT.FILL, SWT.FILL, true, false);
-    gd.widthHint = SWT.DEFAULT;
-    gd.heightHint = SWT.DEFAULT;
+    GridData gd = new GridData(GridData.FILL_HORIZONTAL);
     gd.horizontalIndent = FieldDecorationRegistry.getDefault()
         .getMaximumDecorationWidth();
     textName.setLayoutData(gd);
 
-    Composite bottomComposite = new Composite(container, SWT.NULL);
-    GridLayout gridLayout = new GridLayout(2, false);
-    gridLayout.marginWidth = 0;
-    gridLayout.marginHeight = 0;
-    gridLayout.verticalSpacing = 0;
-    gridLayout.horizontalSpacing = 0;
-    bottomComposite.setLayout(gridLayout);
-    GridData gridData3 = new GridData(SWT.FILL, SWT.FILL, true, true);
-    gridData3.widthHint = SWT.DEFAULT;
-    gridData3.heightHint = SWT.DEFAULT;
-    bottomComposite.setLayoutData(gridData3);
-
-    Label labelDescription = new Label(bottomComposite, SWT.NULL);
+    Label labelDescription = new Label(container, SWT.NULL);
     labelDescription.setText("Group Description");
     GridData gridData4 = new GridData(SWT.LEFT, SWT.TOP, false, false);
     gridData4.widthHint = SWT.DEFAULT;
@@ -118,7 +84,7 @@ public class GroupDetailsWizardPageOne extends WizardPage {
     gridData4.heightHint = SWT.DEFAULT;
     labelDescription.setLayoutData(gridData4);
 
-    textDescription = new Text(bottomComposite, SWT.BORDER | SWT.MULTI);
+    textDescription = new Text(container, SWT.BORDER | SWT.MULTI);
     textDescription.setText("");
     textDescription.addKeyListener(new KeyListener() {
       @Override
@@ -180,12 +146,13 @@ public class GroupDetailsWizardPageOne extends WizardPage {
       }
     });
 
-    GridData gd1 = new GridData(SWT.FILL, SWT.FILL, true, true);
-    gd1.widthHint = SWT.DEFAULT;
-    gd1.heightHint = SWT.DEFAULT;
+    GridData gd1 = new GridData(GridData.FILL_HORIZONTAL);
+    gd1.grabExcessVerticalSpace = true;
+    gd1.verticalAlignment = SWT.FILL;
     gd1.horizontalIndent = FieldDecorationRegistry.getDefault()
         .getMaximumDecorationWidth();
     textDescription.setLayoutData(gd1);
+    
     // Required to avoid an error in the system
     setControl(container);
     setPageComplete(false);

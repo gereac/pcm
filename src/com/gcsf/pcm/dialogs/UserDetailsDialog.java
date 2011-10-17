@@ -38,11 +38,17 @@ public class UserDetailsDialog extends Dialog {
 
   private static HashMap<Control, ControlDecoration> decoratorMap = new HashMap<Control, ControlDecoration>();
 
-  private String ADD_SHELL_TITLE = " Add user - dialog";
+  private static final String ADD_SHELL_TITLE = " Add user - dialog ";
 
-  private String EDIT_SHELL_TITLE = " Edit user - dialog";
+  private static final String EDIT_SHELL_TITLE = " Edit user - dialog ";
+  
+  private static final String ADD_GROUP_TITLE = " Add user ";
+
+  private static final String EDIT_GROUP_TITLE = " Edit user ";
 
   private AbstractObservable myAbstractObservable = null;
+  
+  private Label validationErrorLabel = null;
 
   private User user = new User();
 
@@ -51,6 +57,8 @@ public class UserDetailsDialog extends Dialog {
   private Text phoneText = null;
 
   private Text emailText = null;
+  
+  private boolean validationResult = true;
 
   public UserDetailsDialog(Shell parentShell) {
     super(parentShell);
@@ -69,11 +77,8 @@ public class UserDetailsDialog extends Dialog {
 
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-//    if (user == null) {
-      newShell.setText(ADD_SHELL_TITLE);
-//    } else {
-//      newShell.setText(EDIT_SHELL_TITLE);
-//    }
+    newShell.setText(ADD_SHELL_TITLE);
+    newShell.setSize(350, 200);
   }
 
   @Override
@@ -81,13 +86,14 @@ public class UserDetailsDialog extends Dialog {
 
     Composite composite = new Composite(parent, SWT.NULL);
     composite.setLayout(new GridLayout());
+    GridData gridData0 = new GridData(SWT.FILL, SWT.FILL, true, false);
+    gridData0.widthHint = SWT.DEFAULT;
+    gridData0.heightHint = SWT.DEFAULT;
+    composite.setLayoutData(gridData0);
 
     Group dialogGroup = new Group(composite, SWT.NONE);
-//    if (user == null) {
-      dialogGroup.setText(ADD_SHELL_TITLE);
-//    } else {
-//      dialogGroup.setText(EDIT_SHELL_TITLE);
-//    }
+    dialogGroup.setText(ADD_GROUP_TITLE);
+
     GridLayout groupLayout = new GridLayout(2, false);
     dialogGroup.setLayout(groupLayout);
     GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, false);
@@ -99,42 +105,35 @@ public class UserDetailsDialog extends Dialog {
     Label nameLabel = new Label(dialogGroup, SWT.LEFT);
     nameLabel.setText("User Name: ");
     nameText = new Text(dialogGroup, SWT.BORDER);
-//    if (user == null) {
-      nameText.setText("");
-//    } else {
-//      nameText.setText(user.getUserName());
-//    }
+    nameText.setText(user.getUserName());
     nameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     createControlDecoration(nameText, "Please enter your name");
 
     Label phoneLabel = new Label(dialogGroup, SWT.LEFT);
     phoneLabel.setText("User Phone: ");
     phoneText = new Text(dialogGroup, SWT.BORDER);
-//    if (user == null) {
-      phoneText.setText("");
-//    } else {
-//      phoneText.setText(user.getUserName());
-//    }
+    phoneText.setText(user.getUserPhone());
     phoneText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     createControlDecoration(phoneText, "Please enter your phone");
 
     Label emailLabel = new Label(dialogGroup, SWT.LEFT);
     emailLabel.setText("User Email: ");
     emailText = new Text(dialogGroup, SWT.BORDER);
-//    if (user == null) {
-      emailText.setText("");
-//    } else {
-//      emailText.setText(user.getUserName());
-//    }
+    emailText.setText(user.getUserEmail());
     emailText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
     createControlDecoration(emailText, "Please enter your e-mail");
 
-    Label validationErrorLabel = new Label(composite, SWT.NONE);
+    validationErrorLabel = new Label(composite, SWT.NONE);
     validationErrorLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
     GridDataFactory.swtDefaults().hint(150, SWT.DEFAULT)
         .applyTo(validationErrorLabel);
 
+    return super.createContents(parent);
+  }
+
+  @Override
+  protected void okPressed() {
     final DataBindingContext dataBindingContext = new DataBindingContext();
     dataBindingContext.bindValue(SWTObservables.observeText(nameText,
         SWT.Modify), PojoObservables.observeValue(user, "userName"),
@@ -158,6 +157,7 @@ public class UserDetailsDialog extends Dialog {
 
     aggregateValidationStatus.addChangeListener(new IChangeListener() {
       public void handleChange(ChangeEvent event) {
+        setValidationResult(true);
         for (Object o : dataBindingContext.getBindings()) {
           Binding binding = (Binding) o;
           IStatus status = (IStatus) binding.getValidationStatus().getValue();
@@ -171,6 +171,7 @@ public class UserDetailsDialog extends Dialog {
             if (status.isOK()) {
               decoration.hide();
             } else {
+              setValidationResult(false);
               decoration.setDescriptionText(status.getMessage());
               decoration.show();
             }
@@ -182,15 +183,19 @@ public class UserDetailsDialog extends Dialog {
     dataBindingContext.bindValue(
         SWTObservables.observeText(validationErrorLabel),
         aggregateValidationStatus, null, null);
-
-    return super.createContents(parent);
+    if(getValidationResult()){
+      ((WritableList) myAbstractObservable).add(new User(nameText.getText(),
+          phoneText.getText(), emailText.getText()));
+      super.okPressed();
+    }
   }
-
-  @Override
-  protected void okPressed() {
-    ((WritableList) myAbstractObservable).add(new User(nameText.getText(),
-        phoneText.getText(), emailText.getText()));
-    super.okPressed();
+  
+  private void setValidationResult(boolean aValidationresult) {
+    validationResult = aValidationresult;
+  }
+  
+  private boolean getValidationResult(){
+    return validationResult;
   }
 
   private static void createControlDecoration(Control control, String hoverText) {
@@ -200,6 +205,7 @@ public class UserDetailsDialog extends Dialog {
     FieldDecoration fieldDecoration = FieldDecorationRegistry.getDefault()
         .getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
     controlDecoration.setImage(fieldDecoration.getImage());
+    controlDecoration.hide();
     decoratorMap.put(control, controlDecoration);
   }
 
@@ -221,6 +227,11 @@ public class UserDetailsDialog extends Dialog {
       }
       return Status.OK_STATUS;
     }
+  }
+  
+  @Override
+  protected boolean isResizable() {
+    return true;
   }
 
 }

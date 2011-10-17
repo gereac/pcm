@@ -40,7 +40,9 @@ public class GroupDetailsWizard extends Wizard {
     UserGroup aGroup = new UserGroup();
     aGroup.setGroupName(groupPage.getTextName());
     aGroup.setGroupDescription(groupPage.getTextDescription());
-    aGroup.getGroupMembers().addAll(usersPage.getSelectedUsers());
+    if(usersPage.getSelectedUsers() != null){
+      aGroup.getGroupMembers().addAll(usersPage.getSelectedUsers());
+    }
     groups.getUserGroups().add(aGroup);
     // Updating the display in the view
     IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()

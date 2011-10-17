@@ -50,44 +50,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     configurer.setShowProgressIndicator(true);
   }
 
-  // @Override
-  // public boolean preWindowShellClose() {
-  // trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);
-  // trayItem.setText("My RCP App");
-  // trayItem.setImage(getAppIcon());
-  // trayItem.addSelectionListener(getSelectionListener());
-  // getWindowConfigurer().getWindow().getShell().setVisible(false);
-  // return false;
-  // }
-
-  // private Image getAppIcon() {
-  // return Activator.getImageDescriptor(
-  // Platform.getProduct().getProperty("aboutImage")).createImage();
-  // }
-
-  // private SelectionListener getSelectionListener() {
-  // SelectionListener selListener = new SelectionListener() {
-  //
-  // @Override
-  // public void widgetSelected(SelectionEvent e) {
-  // Shell workbenchWindowShell = getWindowConfigurer().getWindow()
-  // .getShell();
-  // workbenchWindowShell.setVisible(true);
-  // workbenchWindowShell.setActive();
-  // workbenchWindowShell.setFocus();
-  // workbenchWindowShell.setMinimized(false);
-  // trayItem.dispose();
-  // }
-  //
-  // @Override
-  // public void widgetDefaultSelected(SelectionEvent e) {
-  // // TODO Auto-generated method stub
-  // }
-  // };
-  // return selListener;
-  // }
-
-  // As of here is the new stuff
   @Override
   public void postWindowOpen() {
     super.postWindowOpen();
@@ -113,9 +75,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
   }
 
-  // Add a listener to the shell
-
   private void minimizeBehavior() {
+    // Add a listener to the shell
     window.getShell().addShellListener(new ShellAdapter() {
       // If the window is minimized hide the window
       public void shellIconified(ShellEvent e) {
