@@ -549,40 +549,6 @@
       </propertySections>
    </extension>
    <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <propertyContributor
-            contributorId="com.gcsf.pcm.view.groups">
-         <propertyCategory
-               category="group">
-         </propertyCategory>
-      </propertyContributor>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <propertyTabs
-            contributorId="com.gcsf.pcm.view.groups">
-         <propertyTab
-               category="group"
-               id="GroupAdvancedTab"
-               label="Detailed">
-         </propertyTab>
-      </propertyTabs>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <propertySections
-            contributorId="com.gcsf.pcm.view.groups">
-         <propertySection
-               class="org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection"
-               id="GroupAdvancedSection"
-               tab="GroupAdvancedTab">
-            <input
-                  type="com.gcsf.pcm.gui.properties.tabbed.GroupElement">
-            </input>
-         </propertySection>
-      </propertySections>
-   </extension>
-   <extension
          point="org.eclipse.ui.propertiesView">
       <excludeSources
             id="org.eclipse.ui.console.ConsoleView">
@@ -613,6 +579,26 @@
             id="com.gcsf.pcm.preferences.GeneralPreferencePage"
             name="General">
       </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="com.gcsf.pcm.model.UserGroup"
+            class="com.gcsf.pcm.adapter.InternalModelAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="com.gcsf.pcm.model.User"
+            class="com.gcsf.pcm.adapter.InternalModelAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

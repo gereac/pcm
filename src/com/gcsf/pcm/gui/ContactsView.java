@@ -34,9 +34,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.IWorkbenchSiteProgressService;
-import org.eclipse.ui.views.properties.IPropertySheetPage;
-import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
-import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 import com.gcsf.pcm.Activator;
 import com.gcsf.pcm.model.User;
@@ -54,8 +51,7 @@ import com.gcsf.pcm.model.treeviewer.dnd.clipboard.CutUserAction;
 import com.gcsf.pcm.model.treeviewer.dnd.clipboard.PasteUserAction;
 import com.gcsf.pcm.persist.pref.Preference;
 
-public class ContactsView extends ViewPart implements
-    ITabbedPropertySheetPageContributor {
+public class ContactsView extends ViewPart {
 
   public static final String VIEW_ID = "com.gcsf.pcm.view.groups";
 
@@ -127,7 +123,7 @@ public class ContactsView extends ViewPart implements
     // Provide the input to the ContentProvider
     treeViewer.setInput(GroupsProviderMock.getInstance());
 
-    getViewSite().setSelectionProvider(treeViewer);
+    //getViewSite().setSelectionProvider(treeViewer);
 
     clipboard = new Clipboard(fViewSite.getShell().getDisplay());
     createActions();
@@ -204,18 +200,10 @@ public class ContactsView extends ViewPart implements
     treeViewer.getControl().setFocus();
   }
 
-  @Override
-  public String getContributorId() {
-    return fViewSite.getId();
-  }
-
   /**
    * @see org.eclipse.core.runtime.IAdaptable#getAdapter(Class)
    */
   public Object getAdapter(Class adapter) {
-    if (adapter == IPropertySheetPage.class) {
-      return new TabbedPropertySheetPage(this);
-    }
     if (ISelectionProvider.class.equals(adapter)) {
       return treeViewer;
     }
