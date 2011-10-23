@@ -2,9 +2,9 @@ Build a user friendly eclipse RCP application that implements the follow feature
 
 Code Name : Personal Contact Manager 
 
-DONE --> I.        Login to the personal contact manager 
-	 -- ar trebui sa faca de fapt login la gmail/yahoo mail
-	 -- ar trebui sa aiba un check box de genul 'remember user name and password'
+DONE --> I.        Login to the personal contact manager
+	 -- ar trebui sa faca de fapt login la gmail/yahoo mail/facebook/any other service that could provide this informations
+DONE -- should have a check box for 'remember user name and password'
 DONE --> II.        Create new user group 
 DONE --> A.        Input Values 
 DONE --> 1.        Group Name 

@@ -602,6 +602,17 @@
       <initializer
             class="com.gcsf.pcm.persist.pref.PreferencesInitializer">
       </initializer>
+      <initializer
+            class="com.gcsf.pcm.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="com.gcsf.pcm.preferences.GeneralPreferencePage"
+            id="com.gcsf.pcm.preferences.GeneralPreferencePage"
+            name="General">
+      </page>
    </extension>
 
 </plugin>

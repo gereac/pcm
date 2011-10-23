@@ -31,7 +31,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 
+import com.gcsf.pcm.gui.ContactsView;
 import com.gcsf.pcm.model.User;
 
 public class UserDetailsDialog extends Dialog {
@@ -186,12 +188,14 @@ public class UserDetailsDialog extends Dialog {
     if(getValidationResult()){
       ((WritableList) myAbstractObservable).add(new User(nameText.getText(),
           phoneText.getText(), emailText.getText()));
+      ((ContactsView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().
+          getActivePage().findView(ContactsView.VIEW_ID)).updateStatusBar();
       super.okPressed();
     }
   }
   
-  private void setValidationResult(boolean aValidationresult) {
-    validationResult = aValidationresult;
+  private void setValidationResult(boolean aValidationResult) {
+    validationResult = aValidationResult;
   }
   
   private boolean getValidationResult(){

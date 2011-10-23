@@ -15,6 +15,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.splash.AbstractSplashHandler;
 
+import com.gcsf.pcm.Activator;
+import com.gcsf.pcm.preferences.PreferenceConstants;
+
 /**
  * @since 3.3
  * 
@@ -87,15 +90,18 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 	 */
   private void doEventLoop() {
     Shell splash = getSplash();
-    while (fAuthenticated == false) {
-      if (splash.getDisplay().readAndDispatch() == false) {
-        if (loginStatus == 1) {
-          loginSuccess();
-        } else if (loginStatus == 2) {
-          loginFailure();
+    boolean autoLogin = Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_AUTO_LOGIN);
+    if(!autoLogin){
+      while (fAuthenticated == false) {
+        if (splash.getDisplay().readAndDispatch() == false) {
+          if (loginStatus == 1) {
+            loginSuccess();
+          } else if (loginStatus == 2) {
+            loginFailure();
+          }
+  
+          splash.getDisplay().sleep();
         }
-
-        splash.getDisplay().sleep();
       }
     }
   }
@@ -190,25 +196,6 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
   /**
 	 * 
 	 */
-  // private void handleButtonOKWidgetSelected() {
-  // String username = fTextUsername.getText();
-  // String password = fTextPassword.getText();
-  // // Aunthentication is successful if a user provides any username and
-  // // any password
-  // if ((username.length() > 0) && (password.length() > 0)) {
-  // if (username.equalsIgnoreCase("catalin")
-  // && password.equalsIgnoreCase("gerea")) {
-  // fAuthenticated = true;
-  // }
-  // } else {
-  //      MessageDialog.openError(getSplash(), "Authentication Failed", //$NON-NLS-1$
-  //          "A username and password must be specified to login."); //$NON-NLS-1$
-  // }
-  // }
-
-  /**
-	 * 
-	 */
   private void createUI() {
     // Create the login panel
     createUICompositeLogin();
@@ -222,6 +209,8 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     createUILabelPassword();
     // Create the password text widget
     createUITextPassword();
+    // Create the remember password check box widget
+    createUICheckboxRemember();
     // Create the blank label
     createUILabelBlank();
     // Create the OK button
@@ -275,6 +264,22 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     data.verticalIndent = 10;
     fButtonOK.setLayoutData(data);
     fCompositeLogin.getShell().setDefaultButton(fButtonOK);
+  }
+  
+  private void createUICheckboxRemember(){
+    final Button autoLogin = new Button(fCompositeLogin, SWT.CHECK);
+    //autoLogin.setText("Login &automatically at startup");
+    GridData data = new GridData(SWT.CENTER, SWT.NONE, false, false);
+    data.horizontalSpan = 3;
+    autoLogin.setLayoutData(data);
+    autoLogin.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        Activator.getDefault().getPreferenceStore().setValue(PreferenceConstants.P_AUTO_LOGIN, autoLogin.getSelection());
+      } 
+    });
+    autoLogin.setSelection(Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_AUTO_LOGIN));
   }
 
   /**

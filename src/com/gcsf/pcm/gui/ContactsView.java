@@ -178,6 +178,8 @@ public class ContactsView extends ViewPart implements
         .getAdapter(IWorkbenchSiteProgressService.class);
     // TODO implement this correctly
     service.showBusyForFamily(null);
+    
+    updateStatusBar();
   }
 
   public TreeViewer getViewer() {

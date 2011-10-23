@@ -49,6 +49,8 @@ public class GroupDetailsWizard extends Wizard {
         .getActivePage();
     ContactsView view = (ContactsView) page.findView(ContactsView.VIEW_ID);
     view.getViewer().refresh();
+    ((ContactsView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().
+        getActivePage().findView(ContactsView.VIEW_ID)).updateStatusBar();
 
     return true;
   }

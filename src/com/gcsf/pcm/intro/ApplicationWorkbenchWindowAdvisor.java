@@ -30,7 +30,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
   private IWorkbenchWindow window;
 
-  private final static String COMMAND_ID = "com.gcsf.pcm.tray.exitCommand";
+  private final static String EXIT_COMMAND_ID = "com.gcsf.pcm.tray.exitCommand";
+  
+  private final static String ABOUT_COMMAND_ID = "org.eclipse.ui.help.aboutAction";
 
   public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
     super(configurer);
@@ -102,6 +104,21 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
       public void handleEvent(Event event) {
         Menu menu = new Menu(window.getShell(), SWT.POP_UP);
 
+        MenuItem about = new MenuItem(menu, SWT.NONE);
+        about.setText("About");
+        about.addListener(SWT.Selection, new Listener() {
+
+          public void handleEvent(Event event) {
+            // Lets call our command
+            IHandlerService handlerService = (IHandlerService) window
+                .getService(IHandlerService.class);
+            try {
+              handlerService.executeCommand(ABOUT_COMMAND_ID, null);
+            } catch (Exception ex) {
+              throw new RuntimeException(ABOUT_COMMAND_ID);
+            }
+          }
+        });
         // Creates a new menu item that terminates the program
         // when selected
         MenuItem exit = new MenuItem(menu, SWT.NONE);
@@ -112,9 +129,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             IHandlerService handlerService = (IHandlerService) window
                 .getService(IHandlerService.class);
             try {
-              handlerService.executeCommand(COMMAND_ID, null);
+              handlerService.executeCommand(EXIT_COMMAND_ID, null);
             } catch (Exception ex) {
-              throw new RuntimeException(COMMAND_ID);
+              throw new RuntimeException(EXIT_COMMAND_ID);
             }
           }
         });
@@ -132,6 +149,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     }
     if (trayItem != null) {
       trayItem.dispose();
+    }
+    if(window != null){
+      window = null;
     }
   }
 }
