@@ -34,6 +34,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.IWorkbenchSiteProgressService;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import com.gcsf.pcm.Activator;
 import com.gcsf.pcm.model.User;
@@ -49,7 +51,7 @@ import com.gcsf.pcm.model.treeviewer.dnd.UserTreeDropAdapter;
 import com.gcsf.pcm.model.treeviewer.dnd.clipboard.CopyUserAction;
 import com.gcsf.pcm.model.treeviewer.dnd.clipboard.CutUserAction;
 import com.gcsf.pcm.model.treeviewer.dnd.clipboard.PasteUserAction;
-import com.gcsf.pcm.persist.pref.Preference;
+import com.gcsf.pcm.preferences.Preference;
 
 public class ContactsView extends ViewPart {
 
@@ -72,6 +74,9 @@ public class ContactsView extends ViewPart {
   private ContactsSearchBar fSearchBar;
 
   private IViewSite fViewSite;
+
+  // IPropertySheetPage doesn't implement refresh()
+  private PropertySheetPage propertyPage;
 
   public void createPartControl(Composite parent) {
     GridLayout gridLayout = new GridLayout(1, false);
@@ -123,12 +128,13 @@ public class ContactsView extends ViewPart {
     // Provide the input to the ContentProvider
     treeViewer.setInput(GroupsProviderMock.getInstance());
 
-    //getViewSite().setSelectionProvider(treeViewer);
+    // getViewSite().setSelectionProvider(treeViewer);
 
     clipboard = new Clipboard(fViewSite.getShell().getDisplay());
     createActions();
     createTableMenu();
     IActionBars bars = getViewSite().getActionBars();
+    bars.clearGlobalActionHandlers();
     bars.setGlobalActionHandler(ActionFactory.CUT.getId(), cutAction);
     bars.setGlobalActionHandler(ActionFactory.COPY.getId(), copyAction);
     bars.setGlobalActionHandler(ActionFactory.PASTE.getId(), pasteAction);
@@ -174,7 +180,7 @@ public class ContactsView extends ViewPart {
         .getAdapter(IWorkbenchSiteProgressService.class);
     // TODO implement this correctly
     service.showBusyForFamily(null);
-    
+
     updateStatusBar();
   }
 
@@ -211,7 +217,24 @@ public class ContactsView extends ViewPart {
     if (IInputProvider.class.equals(adapter)) {
       return treeViewer.getInput();
     }
+
+    if (adapter == IPropertySheetPage.class) {
+      if (propertyPage == null) {
+        propertyPage = new PropertySheetPage();
+      }
+      return propertyPage;
+    }
     return super.getAdapter(adapter);
+  }
+
+  /**
+   * If called from UI thread, refreshes property page from model (an
+   * IPropertySource). If called from non-UI thread, does nothing.
+   */
+  public void refreshPropertyPage() {
+    if (propertyPage != null) {
+      propertyPage.refresh();
+    }
   }
 
   private void createActions() {
@@ -354,18 +377,18 @@ public class ContactsView extends ViewPart {
     Activator
         .getDefault()
         .getPreferenceStore()
-        .setValue(Preference.BE_BEGIN_SEARCH_ON_TYPING.id(),
+        .setValue(Preference.P_BEGIN_SEARCH_ON_TYPING.id(),
             fBeginSearchOnTyping);
     Activator.getDefault().getPreferenceStore()
-        .setValue(Preference.BE_ALWAYS_SHOW_SEARCH.id(), fAlwaysShowSearch);
+        .setValue(Preference.P_ALWAYS_SHOW_SEARCH.id(), fAlwaysShowSearch);
   }
 
   private void loadState() {
     /* Misc. Settings */
     fBeginSearchOnTyping = Activator.getDefault().getPreferenceStore()
-        .getBoolean(Preference.BE_BEGIN_SEARCH_ON_TYPING.id());
+        .getBoolean(Preference.P_BEGIN_SEARCH_ON_TYPING.id());
     fAlwaysShowSearch = Activator.getDefault().getPreferenceStore()
-        .getBoolean(Preference.BE_ALWAYS_SHOW_SEARCH.id());
+        .getBoolean(Preference.P_ALWAYS_SHOW_SEARCH.id());
   }
 
   /**
@@ -375,15 +398,16 @@ public class ContactsView extends ViewPart {
     setSearchBarVisible(true);
     fSearchBar.getControl().setFocus();
   }
-  
-  public void updateStatusBar(){
-    IStatusLineManager statusLine = this.getViewSite().getActionBars().getStatusLineManager();
+
+  public void updateStatusBar() {
+    IStatusLineManager statusLine = this.getViewSite().getActionBars()
+        .getStatusLineManager();
     StringBuffer buf = new StringBuffer();
     buf.append("Groups number: ");
     buf.append(GroupsProviderMock.getInstance().getUserGroups().size());
     buf.append(" . Users number: ");
     buf.append(GroupsProviderMock.getInstance().getUsers().size());
     statusLine.setMessage(buf.toString());
-} 
+  }
 
 }

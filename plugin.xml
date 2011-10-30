@@ -215,6 +215,27 @@
             </command>
          </toolbar>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:com.gcsf.pcm.view.groups">
+         <command
+               commandId="org.eclipse.ui.navigate.collapseAll"
+               icon="icons/collapseall.gif"
+               style="push"
+               tooltip="Collapse All">
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.trim.status">
+         <toolbar
+               id="com.gcsf.pcm.contributedTrim">
+            <control
+                  class="com.gcsf.pcm.gui.ExampleControlContribution"
+                  id="contributions.controlContrib1">
+            </control>
+         </toolbar>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
@@ -361,6 +382,7 @@
       <view
             allowMultiple="false"
             class="com.gcsf.pcm.gui.ContactsView"
+            icon="icons/users.png"
             id="com.gcsf.pcm.view.groups"
             name="Contacts View"
             restorable="true">
@@ -368,21 +390,16 @@
       <view
             allowMultiple="false"
             class="com.gcsf.pcm.gui.UsersView"
+            icon="icons/user.png"
             id="com.gcsf.pcm.view.users"
             name="Users View"
             restorable="true">
       </view>
       <view
-            class="com.gcsf.pcm.gui.SampleView"
-            id="com.gcsf.pcm.view.SampleView"
+            class="com.gcsf.pcm.gui.CustomPropertiesView"
+            icon="icons/application_view_detail.png"
+            id="com.gcsf.pcm.view.CustomPropertiesView"
             name="Properties View"
-            restorable="true">
-      </view>
-      <view
-            allowMultiple="false"
-            class="com.gcsf.pcm.gui.TestGroupsView"
-            id="com.gcsf.pcm.view.testgroups"
-            name="Test Groups View"
             restorable="true">
       </view>
    </extension>
@@ -425,12 +442,13 @@
          </view>
          <view
                closeable="false"
-               id="org.eclipse.ui.views.PropertySheet"
+               id="com.gcsf.pcm.view.CustomPropertiesView"
                minimized="false"
                ratio="0.49f"
                relationship="left"
                relative="org.eclipse.ui.console.ConsoleView"
                showTitle="true"
+               standalone="true"
                visible="true">
          </view>
       </perspectiveExtension>
@@ -565,9 +583,6 @@
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="com.gcsf.pcm.persist.pref.PreferencesInitializer">
-      </initializer>
       <initializer
             class="com.gcsf.pcm.preferences.PreferenceInitializer">
       </initializer>

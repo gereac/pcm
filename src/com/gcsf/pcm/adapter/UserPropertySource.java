@@ -6,23 +6,33 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 import com.gcsf.pcm.model.User;
 
-public class UserPropertySource implements IPropertySource{
-  
+public class UserPropertySource implements IPropertySource {
+
   protected static final String PROPERTY_NAME = "userName"; //$NON-NLS-1$
 
   protected static final String PROPERTY_PHONE = "userPhone"; //$NON-NLS-1$
-  
+
   protected static final String PROPERTY_EMAIL = "userEmail"; //$NON-NLS-1$
-  
+
   private final User user;
+
+  private String defTextName;
 
   public UserPropertySource(User user) {
     this.user = user;
   }
 
+  public UserPropertySource(User user, String defTextName) {
+    this.user = user;
+    this.defTextName = defTextName;
+  }
 
   @Override
   public boolean isPropertySet(Object id) {
+    if (id.equals(PROPERTY_NAME)) {
+      String crtName = (String) getPropertyValue(id);
+      return !crtName.equals(defTextName);
+    }
     return false;
   }
 
@@ -37,7 +47,7 @@ public class UserPropertySource implements IPropertySource{
     return new IPropertyDescriptor[] {
         new TextPropertyDescriptor(PROPERTY_NAME, "Name"),
         new TextPropertyDescriptor(PROPERTY_PHONE, "Phone"),
-        new TextPropertyDescriptor(PROPERTY_EMAIL, "E-mail")};
+        new TextPropertyDescriptor(PROPERTY_EMAIL, "E-mail") };
   }
 
   @Override
@@ -56,7 +66,9 @@ public class UserPropertySource implements IPropertySource{
 
   @Override
   public void resetPropertyValue(Object id) {
-
+    if (id.equals(PROPERTY_NAME)) {
+      setPropertyValue(id, defTextName);
+    }
   }
 
   @Override

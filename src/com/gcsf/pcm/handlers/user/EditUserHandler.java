@@ -12,34 +12,36 @@ import com.gcsf.pcm.model.User;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
+ * 
  * @see org.eclipse.core.commands.IHandler
  * @see org.eclipse.core.commands.AbstractHandler
  */
 public class EditUserHandler extends AbstractHandler {
-	/**
-	 * The constructor.
-	 */
-	public EditUserHandler() {
-	}
+  /**
+   * The constructor.
+   */
+  public EditUserHandler() {
+  }
 
-	/**
-	 * the command has been executed, so extract extract the needed information
-	 * from the application context.
-	 */
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-	  Shell aShell = HandlerUtil.getActiveShell(event);
-	  if(!HandlerUtil.getCurrentSelectionChecked(event).isEmpty()){
-  	  User selectedUser = (User) ((StructuredSelection)HandlerUtil.getCurrentSelectionChecked(event)).getFirstElement();
+  /**
+   * the command has been executed, so extract extract the needed information
+   * from the application context.
+   */
+  public Object execute(ExecutionEvent event) throws ExecutionException {
+    Shell aShell = HandlerUtil.getActiveShell(event);
+    if (!HandlerUtil.getCurrentSelectionChecked(event).isEmpty()) {
+      User selectedUser = (User) ((StructuredSelection) HandlerUtil
+          .getCurrentSelectionChecked(event)).getFirstElement();
       UserDetailsDialog dialog = new UserDetailsDialog(aShell, selectedUser);
       if (dialog != null) {
         dialog.open();
       }
       return null;
-	  }
+    }
     return null;
-	}
-	
-	@Override
+  }
+
+  @Override
   public boolean isEnabled() {
     return true;
   }

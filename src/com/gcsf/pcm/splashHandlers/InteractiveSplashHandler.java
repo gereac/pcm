@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.splash.AbstractSplashHandler;
 
 import com.gcsf.pcm.Activator;
-import com.gcsf.pcm.preferences.PreferenceConstants;
+import com.gcsf.pcm.preferences.Preference;
 
 /**
  * @since 3.3
@@ -90,8 +90,9 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 	 */
   private void doEventLoop() {
     Shell splash = getSplash();
-    boolean autoLogin = Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_AUTO_LOGIN);
-    if(!autoLogin){
+    boolean autoLogin = Activator.getDefault().getPreferenceStore()
+        .getBoolean(Preference.P_AUTO_LOGIN.id());
+    if (!autoLogin) {
       while (fAuthenticated == false) {
         if (splash.getDisplay().readAndDispatch() == false) {
           if (loginStatus == 1) {
@@ -99,7 +100,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
           } else if (loginStatus == 2) {
             loginFailure();
           }
-  
+
           splash.getDisplay().sleep();
         }
       }
@@ -265,10 +266,10 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
     fButtonOK.setLayoutData(data);
     fCompositeLogin.getShell().setDefaultButton(fButtonOK);
   }
-  
-  private void createUICheckboxRemember(){
+
+  private void createUICheckboxRemember() {
     final Button autoLogin = new Button(fCompositeLogin, SWT.CHECK);
-    //autoLogin.setText("Login &automatically at startup");
+    // autoLogin.setText("Login &automatically at startup");
     GridData data = new GridData(SWT.CENTER, SWT.NONE, false, false);
     data.horizontalSpan = 3;
     autoLogin.setLayoutData(data);
@@ -276,10 +277,12 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 
       @Override
       public void widgetSelected(SelectionEvent e) {
-        Activator.getDefault().getPreferenceStore().setValue(PreferenceConstants.P_AUTO_LOGIN, autoLogin.getSelection());
-      } 
+        Activator.getDefault().getPreferenceStore()
+            .setValue(Preference.P_AUTO_LOGIN.id(), autoLogin.getSelection());
+      }
     });
-    autoLogin.setSelection(Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.P_AUTO_LOGIN));
+    autoLogin.setSelection(Activator.getDefault().getPreferenceStore()
+        .getBoolean(Preference.P_AUTO_LOGIN.id()));
   }
 
   /**

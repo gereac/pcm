@@ -11,10 +11,7 @@ import org.eclipse.core.databinding.observable.AbstractObservable;
 import org.eclipse.core.databinding.observable.ChangeEvent;
 import org.eclipse.core.databinding.observable.IChangeListener;
 import org.eclipse.core.databinding.observable.list.WritableList;
-import org.eclipse.core.databinding.validation.IValidator;
-import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.databinding.swt.ISWTObservable;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.dialogs.Dialog;
@@ -43,13 +40,13 @@ public class UserDetailsDialog extends Dialog {
   private static final String ADD_SHELL_TITLE = " Add user - dialog ";
 
   private static final String EDIT_SHELL_TITLE = " Edit user - dialog ";
-  
+
   private static final String ADD_GROUP_TITLE = " Add user ";
 
   private static final String EDIT_GROUP_TITLE = " Edit user ";
 
   private AbstractObservable myAbstractObservable = null;
-  
+
   private Label validationErrorLabel = null;
 
   private User user = new User();
@@ -59,8 +56,10 @@ public class UserDetailsDialog extends Dialog {
   private Text phoneText = null;
 
   private Text emailText = null;
-  
+
   private boolean validationResult = true;
+
+  private DataBindingContext dataBindingContext = new DataBindingContext();
 
   public UserDetailsDialog(Shell parentShell) {
     super(parentShell);
@@ -79,7 +78,8 @@ public class UserDetailsDialog extends Dialog {
 
   protected void configureShell(Shell newShell) {
     super.configureShell(newShell);
-    newShell.setText(ADD_SHELL_TITLE);
+    newShell.setText(myAbstractObservable != null ? ADD_SHELL_TITLE
+        : EDIT_SHELL_TITLE);
     newShell.setSize(350, 200);
   }
 
@@ -94,7 +94,8 @@ public class UserDetailsDialog extends Dialog {
     composite.setLayoutData(gridData0);
 
     Group dialogGroup = new Group(composite, SWT.NONE);
-    dialogGroup.setText(ADD_GROUP_TITLE);
+    dialogGroup.setText(myAbstractObservable != null ? ADD_GROUP_TITLE
+        : EDIT_GROUP_TITLE);
 
     GridLayout groupLayout = new GridLayout(2, false);
     dialogGroup.setLayout(groupLayout);
@@ -136,7 +137,10 @@ public class UserDetailsDialog extends Dialog {
 
   @Override
   protected void okPressed() {
-    final DataBindingContext dataBindingContext = new DataBindingContext();
+    if (dataBindingContext != null) {
+      dataBindingContext.dispose();
+      dataBindingContext = new DataBindingContext();
+    }
     dataBindingContext.bindValue(SWTObservables.observeText(nameText,
         SWT.Modify), PojoObservables.observeValue(user, "userName"),
         new UpdateValueStrategy()
@@ -185,20 +189,20 @@ public class UserDetailsDialog extends Dialog {
     dataBindingContext.bindValue(
         SWTObservables.observeText(validationErrorLabel),
         aggregateValidationStatus, null, null);
-    if(getValidationResult()){
+    if (getValidationResult() && myAbstractObservable != null) {
       ((WritableList) myAbstractObservable).add(new User(nameText.getText(),
           phoneText.getText(), emailText.getText()));
-      ((ContactsView) PlatformUI.getWorkbench().getActiveWorkbenchWindow().
-          getActivePage().findView(ContactsView.VIEW_ID)).updateStatusBar();
+      ((ContactsView) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+          .getActivePage().findView(ContactsView.VIEW_ID)).updateStatusBar();
       super.okPressed();
     }
   }
-  
+
   private void setValidationResult(boolean aValidationResult) {
     validationResult = aValidationResult;
   }
-  
-  private boolean getValidationResult(){
+
+  private boolean getValidationResult() {
     return validationResult;
   }
 
@@ -213,26 +217,6 @@ public class UserDetailsDialog extends Dialog {
     decoratorMap.put(control, controlDecoration);
   }
 
-  private static class StringRequiredValidator implements IValidator {
-
-    private final String errorText;
-
-    public StringRequiredValidator(String errorText) {
-      super();
-      this.errorText = errorText;
-    }
-
-    public IStatus validate(Object value) {
-      if (value instanceof String) {
-        String text = (String) value;
-        if (text.trim().length() == 0) {
-          return ValidationStatus.error(errorText);
-        }
-      }
-      return Status.OK_STATUS;
-    }
-  }
-  
   @Override
   protected boolean isResizable() {
     return true;
