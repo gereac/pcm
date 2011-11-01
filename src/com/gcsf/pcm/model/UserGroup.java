@@ -6,6 +6,10 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.ui.views.properties.IPropertySource;
+
+import com.gcsf.pcm.adapter.UserGroupPropertySource;
+
 public class UserGroup implements PropertyChangeListener, ITreeElement {
 
   private String groupName;
@@ -17,9 +21,8 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
       this);
 
-  public void addPropertyChangeListener(String propertyName,
-      PropertyChangeListener listener) {
-    propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+  public void addPropertyChangeListener(PropertyChangeListener listener) {
+    propertyChangeSupport.addPropertyChangeListener(listener);
   }
 
   public void removePropertyChangeListener(PropertyChangeListener listener) {
@@ -64,6 +67,12 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
   public void propertyChange(PropertyChangeEvent evt) {
     propertyChangeSupport.firePropertyChange("groupName", this.groupName,
         this.groupName = groupName);
+  }
+
+  public UserGroupPropertySource getAdapter(Class adapter) {
+    if (adapter == IPropertySource.class)
+      return new UserGroupPropertySource(this);
+    return null;
   }
 
 }

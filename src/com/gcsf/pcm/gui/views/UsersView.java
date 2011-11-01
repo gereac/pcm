@@ -1,4 +1,4 @@
-package com.gcsf.pcm.gui;
+package com.gcsf.pcm.gui.views;
 
 import java.util.ArrayList;
 import java.util.List;

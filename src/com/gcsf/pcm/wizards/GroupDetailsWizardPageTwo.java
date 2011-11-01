@@ -37,28 +37,28 @@ import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 public class GroupDetailsWizardPageTwo extends WizardPage {
 
   private Composite container;
-  
+
   private Composite allUsersComposite = null;
-  
+
   private Composite buttonsComposite = null;
-  
+
   private Composite newUserComposite = null;
-  
+
   private Composite selectedUsersComposite = null;
 
   private TableViewer allUsersViewer;
 
   private TableViewer selectedUsersViewer;
-  
+
   private WritableList allUsersInput;
 
   private Button addOne = null;
 
   private Button removeOne = null;
-  
+
   private Button newUser = null;
-  
-  private   ISummaryListener mySummaryListener       = null;
+
+  private ISummaryListener mySummaryListener = null;
 
   public GroupDetailsWizardPageTwo() {
     super("Second Page");
@@ -92,10 +92,11 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     allUsersTable.setHeaderVisible(false);
     allUsersTable.setLinesVisible(false);
 
-    //allUsersViewer.setContentProvider(new ArrayContentProvider());
-    //allUsersViewer.setInput(GroupsProviderMock.getInstance().getUsers());
-    
-    allUsersInput = new WritableList(GroupsProviderMock.getInstance().getUsers(), User.class);
+    // allUsersViewer.setContentProvider(new ArrayContentProvider());
+    // allUsersViewer.setInput(GroupsProviderMock.getInstance().getUsers());
+
+    allUsersInput = new WritableList(GroupsProviderMock.getInstance()
+        .getUsers(), User.class);
     ViewerSupport.bind(
         allUsersViewer,
         allUsersInput,
@@ -104,15 +105,16 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
 
     allUsersViewer.addDoubleClickListener(new IDoubleClickListener() {
 
-      @SuppressWarnings("unchecked")
       @Override
       public void doubleClick(DoubleClickEvent aEvent) {
         if (aEvent.getSource() instanceof TableViewer) {
           TableViewer sourceTableViewer = (TableViewer) aEvent.getSource();
-          TableViewer destinationTableViewer = (sourceTableViewer == allUsersViewer) ? selectedUsersViewer : allUsersViewer;
+          TableViewer destinationTableViewer = (sourceTableViewer == allUsersViewer) ? selectedUsersViewer
+              : allUsersViewer;
           moveSelectedEntries(sourceTableViewer, destinationTableViewer);
           if (mySummaryListener != null) {
-            mySummaryListener.setUsers((java.util.List<User>)selectedUsersViewer.getInput());
+            mySummaryListener
+                .setUsers((java.util.List<User>) selectedUsersViewer.getInput());
           }
         }
       }
@@ -143,40 +145,40 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     addOne.setText(">>>");
     addOne.setEnabled(false);
     addOne.addSelectionListener(new SelectionListener() {
-      
-      @SuppressWarnings("unchecked")
+
       @Override
       public void widgetSelected(SelectionEvent e) {
         moveSelectedEntries(allUsersViewer, selectedUsersViewer);
         if (mySummaryListener != null) {
-          mySummaryListener.setUsers((java.util.List<User>)selectedUsersViewer.getInput());
+          mySummaryListener.setUsers((java.util.List<User>) selectedUsersViewer
+              .getInput());
         }
       }
-      
+
       @Override
       public void widgetDefaultSelected(SelectionEvent e) {
         // TODO Auto-generated method stub
-        
+
       }
     });
     removeOne = new Button(buttonsComposite, SWT.PUSH);
     removeOne.setText("<<<");
     removeOne.setEnabled(false);
     removeOne.addSelectionListener(new SelectionListener() {
-      
-      @SuppressWarnings("unchecked")
+
       @Override
       public void widgetSelected(SelectionEvent e) {
         moveSelectedEntries(allUsersViewer, selectedUsersViewer);
         if (mySummaryListener != null) {
-          mySummaryListener.setUsers((java.util.List<User>)selectedUsersViewer.getInput());
+          mySummaryListener.setUsers((java.util.List<User>) selectedUsersViewer
+              .getInput());
         }
       }
-      
+
       @Override
       public void widgetDefaultSelected(SelectionEvent e) {
         // TODO Auto-generated method stub
-        
+
       }
     });
 
@@ -200,7 +202,7 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     selectedUsersTable.setLinesVisible(false);
 
     selectedUsersViewer.setContentProvider(new ArrayContentProvider());
-    
+
     newUserComposite = new Composite(container, SWT.NULL);
     GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, false, false);
     gridData2.widthHint = SWT.DEFAULT;
@@ -212,24 +214,26 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     gridLayout2.verticalSpacing = 0;
     gridLayout2.horizontalSpacing = 0;
     newUserComposite.setLayout(gridLayout2);
-    
+
     newUser = new Button(newUserComposite, SWT.PUSH);
-    newUser.setImage(Activator.getImageDescriptor("/icons/user/user_add.png").createImage());
+    newUser.setImage(Activator.getImageDescriptor("/icons/user/user_add.png")
+        .createImage());
     newUser.setText("Add new user");
     newUser.addSelectionListener(new SelectionListener() {
-      
+
       @Override
       public void widgetSelected(SelectionEvent event) {
-        UserDetailsDialog dialog = new UserDetailsDialog(container.getShell(), allUsersInput);
+        UserDetailsDialog dialog = new UserDetailsDialog(container.getShell(),
+            allUsersInput);
         if (dialog != null) {
           dialog.open();
         }
       }
-      
+
       @Override
       public void widgetDefaultSelected(SelectionEvent e) {
         // TODO Auto-generated method stub
-        
+
       }
     });
 
@@ -248,7 +252,8 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     parent.setLayout(tableColumnLayout);
 
     // First column is for the name
-    TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0, viewer);
+    TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0,
+        viewer);
     col.setLabelProvider(new ColumnLabelProvider() {
       @Override
       public String getText(Object element) {
@@ -274,8 +279,8 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
 
   private TableViewerColumn createTableViewerColumn(String title, int bound,
       final int colNumber, TableViewer viewer) {
-    final TableViewerColumn viewerColumn = new TableViewerColumn(
-        viewer, SWT.NONE);
+    final TableViewerColumn viewerColumn = new TableViewerColumn(viewer,
+        SWT.NONE);
     final TableColumn column = viewerColumn.getColumn();
     column.setText(title);
     column.setWidth(bound);
@@ -283,12 +288,12 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     column.setMoveable(true);
     return viewerColumn;
   }
-  
+
   private void updateButtons() {
     addOne.setEnabled(allUsersViewer.getTable().getSelectionCount() > 0);
-    removeOne.setEnabled(selectedUsersViewer.getTable().getSelectionCount() > 0);    
+    removeOne
+        .setEnabled(selectedUsersViewer.getTable().getSelectionCount() > 0);
   }
-
 
   @SuppressWarnings({ "unchecked" })
   private void moveSelectedEntries(TableViewer aSource, TableViewer aDestination) {
@@ -301,10 +306,9 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     }
     java.util.List<User> sourceInput = (java.util.List<User>) aSource
         .getInput();
-    for (User data : (java.util.List<User>) selection
-        .toList()) {
-        destinationInput.add(data);
-        sourceInput.remove(data);
+    for (User data : (java.util.List<User>) selection.toList()) {
+      destinationInput.add(data);
+      sourceInput.remove(data);
     }
     aSource.setInput(sourceInput);
     aDestination.setInput(destinationInput);
@@ -312,12 +316,12 @@ public class GroupDetailsWizardPageTwo extends WizardPage {
     aSource.refresh();
     aDestination.refresh();
   }
-  
+
   @SuppressWarnings("unchecked")
-  public List<User> getSelectedUsers(){
-    return (java.util.List<User>)selectedUsersViewer.getInput();
+  public List<User> getSelectedUsers() {
+    return (java.util.List<User>) selectedUsersViewer.getInput();
   }
-  
+
   public void setSummaryListener(ISummaryListener aListener) {
     mySummaryListener = aListener;
   }

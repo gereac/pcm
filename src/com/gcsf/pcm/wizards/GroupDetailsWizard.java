@@ -4,7 +4,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
-import com.gcsf.pcm.gui.ContactsView;
+import com.gcsf.pcm.gui.views.ContactsView;
 import com.gcsf.pcm.model.UserGroup;
 import com.gcsf.pcm.model.treeviewer.GroupsProviderMock;
 

@@ -1,4 +1,4 @@
-package com.gcsf.pcm.gui;
+package com.gcsf.pcm.gui.views;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -32,10 +32,12 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.part.Page;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.IWorkbenchSiteProgressService;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
-import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
 import com.gcsf.pcm.Activator;
 import com.gcsf.pcm.model.User;
@@ -53,7 +55,8 @@ import com.gcsf.pcm.model.treeviewer.dnd.clipboard.CutUserAction;
 import com.gcsf.pcm.model.treeviewer.dnd.clipboard.PasteUserAction;
 import com.gcsf.pcm.preferences.Preference;
 
-public class ContactsView extends ViewPart {
+public class ContactsView extends ViewPart implements
+    ITabbedPropertySheetPageContributor {
 
   public static final String VIEW_ID = "com.gcsf.pcm.view.groups";
 
@@ -75,8 +78,7 @@ public class ContactsView extends ViewPart {
 
   private IViewSite fViewSite;
 
-  // IPropertySheetPage doesn't implement refresh()
-  private PropertySheetPage propertyPage;
+  private Page propertyPage;
 
   public void createPartControl(Composite parent) {
     GridLayout gridLayout = new GridLayout(1, false);
@@ -220,21 +222,12 @@ public class ContactsView extends ViewPart {
 
     if (adapter == IPropertySheetPage.class) {
       if (propertyPage == null) {
-        propertyPage = new PropertySheetPage();
+        // propertyPage = new PropertySheetPage();
+        propertyPage = new TabbedPropertySheetPage(this);
       }
       return propertyPage;
     }
     return super.getAdapter(adapter);
-  }
-
-  /**
-   * If called from UI thread, refreshes property page from model (an
-   * IPropertySource). If called from non-UI thread, does nothing.
-   */
-  public void refreshPropertyPage() {
-    if (propertyPage != null) {
-      propertyPage.refresh();
-    }
   }
 
   private void createActions() {
@@ -408,6 +401,11 @@ public class ContactsView extends ViewPart {
     buf.append(" . Users number: ");
     buf.append(GroupsProviderMock.getInstance().getUsers().size());
     statusLine.setMessage(buf.toString());
+  }
+
+  @Override
+  public String getContributorId() {
+    return getSite().getId();
   }
 
 }

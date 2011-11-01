@@ -14,7 +14,7 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
+            name="Contact Perspective"
             class="com.gcsf.pcm.gui.GeneralPerspective"
             id="com.gcsf.pcm.perspective">
       </perspective>
@@ -381,7 +381,7 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="com.gcsf.pcm.gui.ContactsView"
+            class="com.gcsf.pcm.gui.views.ContactsView"
             icon="icons/users.png"
             id="com.gcsf.pcm.view.groups"
             name="Contacts View"
@@ -389,14 +389,14 @@
       </view>
       <view
             allowMultiple="false"
-            class="com.gcsf.pcm.gui.UsersView"
+            class="com.gcsf.pcm.gui.views.UsersView"
             icon="icons/user.png"
             id="com.gcsf.pcm.view.users"
             name="Users View"
             restorable="true">
       </view>
       <view
-            class="com.gcsf.pcm.gui.CustomPropertiesView"
+            class="com.gcsf.pcm.gui.views.CustomPropertiesView"
             icon="icons/application_view_detail.png"
             id="com.gcsf.pcm.view.CustomPropertiesView"
             name="Properties View"
@@ -502,71 +502,6 @@
       </definition>
    </extension>
    <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      <propertyContributor
-            contributorId="com.gcsf.pcm.view.SampleView">
-         <propertyCategory
-               category="sample"></propertyCategory>
-      </propertyContributor>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <propertyTabs
-            contributorId="com.gcsf.pcm.view.SampleView">
-         <propertyTab
-               category="sample"
-               id="ButtonTab"
-               label="Button">
-         </propertyTab>
-         <propertyTab
-               afterTab="ButtonTab"
-               category="sample"
-               id="AdvancedTab"
-               label="Advanced">
-         </propertyTab>
-      </propertyTabs>
-   </extension>
-   <extension
-         point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      <propertySections
-            contributorId="com.gcsf.pcm.view.SampleView">
-         <propertySection
-               class="com.gcsf.pcm.proptest.LabelSection"
-               id="LabelSection"
-               tab="ButtonTab">
-            <input
-                  type="com.gcsf.pcm.proptest.ButtonElement">
-            </input>
-         </propertySection>
-         <propertySection
-               afterSection="LabelSection"
-               class="com.gcsf.pcm.proptest.SizeSection"
-               id="SizeSection"
-               tab="ButtonTab">
-            <input
-                  type="com.gcsf.pcm.proptest.ButtonElement">
-            </input>
-         </propertySection>
-         <propertySection
-               afterSection="SizeSection"
-               class="com.gcsf.pcm.proptest.FontSection"
-               id="FontSection"
-               tab="ButtonTab">
-            <input
-                  type="com.gcsf.pcm.proptest.ButtonElement">
-            </input>
-         </propertySection>
-         <propertySection
-               class="org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection"
-               id="AdvancedSection"
-               tab="AdvancedTab">
-            <input
-                  type="com.gcsf.pcm.proptest.ButtonElement">
-            </input>
-         </propertySection>
-      </propertySections>
-   </extension>
-   <extension
          point="org.eclipse.ui.propertiesView">
       <excludeSources
             id="org.eclipse.ui.console.ConsoleView">
@@ -614,6 +549,72 @@
                type="org.eclipse.ui.views.properties.IPropertySource">
          </adapter>
       </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor
+            contributorId="com.gcsf.pcm.view.groups">
+         <propertyCategory
+               category="usergroup"></propertyCategory>
+      </propertyContributor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="com.gcsf.pcm.view.groups">
+         <propertyTab
+               category="usergroup"
+               id="com.gcsf.pcm.userGroup.basicTab"
+               image="icons/simple.png"
+               label="Basic">
+         </propertyTab>
+         <propertyTab
+               afterTab="com.gcsf.pcm.userGroup.basicTab"
+               category="usergroup"
+               id="com.gcsf.pcm.userGroup.advancedTab"
+               image="icons/advanced.png"
+               indented="true"
+               label="Advanced">
+         </propertyTab>
+         <propertyTab
+               afterTab="com.gcsf.pcm.userGroup.advancedTab"
+               category="usergroup"
+               id="com.gcsf.pcm.userGroup.originalTab"
+               image="icons/prop_ps.gif"
+               label="Original">
+         </propertyTab>
+      </propertyTabs>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="com.gcsf.pcm.view.groups">
+         <propertySection
+               class="com.gcsf.pcm.propertiesview.NamePropertySection"
+               id="com.gcsf.pcm.userGroup.nameProperty"
+               tab="com.gcsf.pcm.userGroup.basicTab">
+            <input
+                  type="com.gcsf.pcm.model.UserGroup">
+            </input>
+         </propertySection>
+         <propertySection
+               afterSection="com.gcsf.pcm.userGroup.nameProperty"
+               class="com.gcsf.pcm.propertiesview.DescriptionPropertySection"
+               id="com.gcsf.pcm.userGroup.descriptionProperty"
+               tab="com.gcsf.pcm.userGroup.basicTab">
+            <input
+                  type="com.gcsf.pcm.model.UserGroup">
+            </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.ui.views.properties.tabbed.AdvancedPropertySection"
+               id="com.gcsf.pcm.userGroup.original"
+               tab="com.gcsf.pcm.userGroup.originalTab">
+            <input
+                  type="com.gcsf.pcm.model.UserGroup">
+            </input>
+         </propertySection>
+      </propertySections>
    </extension>
 
 </plugin>

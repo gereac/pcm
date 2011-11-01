@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 
-import com.gcsf.pcm.gui.ContactsView;
+import com.gcsf.pcm.gui.views.ContactsView;
 import com.gcsf.pcm.model.User;
 
 public class UserDetailsDialog extends Dialog {

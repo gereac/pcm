@@ -35,7 +35,7 @@ public class UserDragListener extends DragSourceAdapter {
     if (event.detail == DND.DROP_MOVE) {
       IStructuredSelection selection = (IStructuredSelection) viewer
           .getSelection();
-      for (Iterator it = selection.iterator(); it.hasNext();) {
+      for (Iterator<?> it = selection.iterator(); it.hasNext();) {
         User aUser = (User) it.next();
         sourceGroup.getGroupMembers().remove(aUser);
       }

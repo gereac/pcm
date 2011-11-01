@@ -23,7 +23,7 @@
  **                                                                          **
  **  **********************************************************************  */
 
-package com.gcsf.pcm.gui;
+package com.gcsf.pcm.gui.views;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -201,6 +201,7 @@ class ContactsSearchBar extends Composite {
   private void createFilterTarget(Composite parent) {
     final ToolBarManager filterTargetManager = new ToolBarManager(SWT.FLAT);
 
+    @SuppressWarnings("unused")
     IAction filterTargetAction = new Action("", IAction.AS_DROP_DOWN_MENU) { //$NON-NLS-1$
       @Override
       public void run() {
