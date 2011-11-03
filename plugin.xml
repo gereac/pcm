@@ -47,8 +47,9 @@
          point="org.eclipse.ui.intro">
       <intro
             class="org.eclipse.ui.intro.config.CustomizableIntroPart"
-            icon="icons/welcome/welcome16.gif"
-            id="com.gcsf.pcm.intro">
+            icon="icons/Login Manager_small.gif"
+            id="com.gcsf.pcm.intro"
+            label="PCM Welcome">
       </intro>
       <introProductBinding
             introId="com.gcsf.pcm.intro"
@@ -553,7 +554,8 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
       <propertyContributor
-            contributorId="com.gcsf.pcm.view.groups">
+            contributorId="com.gcsf.pcm.view.groups"
+            labelProvider="com.gcsf.pcm.propertiesview.PropertiesViewTitleBarLabelProvider">
          <propertyCategory
                category="usergroup"></propertyCategory>
       </propertyContributor>
@@ -602,6 +604,14 @@
                class="com.gcsf.pcm.propertiesview.DescriptionPropertySection"
                id="com.gcsf.pcm.userGroup.descriptionProperty"
                tab="com.gcsf.pcm.userGroup.basicTab">
+            <input
+                  type="com.gcsf.pcm.model.UserGroup">
+            </input>
+         </propertySection>
+         <propertySection
+               class="com.gcsf.pcm.propertiesview.MembersPropertySection"
+               id="com.gcsf.pcm.userGroup.membersProperty"
+               tab="com.gcsf.pcm.userGroup.advancedTab">
             <input
                   type="com.gcsf.pcm.model.UserGroup">
             </input>

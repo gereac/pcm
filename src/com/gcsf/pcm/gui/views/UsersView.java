@@ -134,7 +134,9 @@ public class UsersView extends ViewPart implements ISelectionListener {
 
   @Override
   public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-    System.out.println("selection is : " + selection);
+    if (part.getSite().getId().contains("com.gcsf.pcm")) {
+      System.out.println("selection is : " + selection);
+    }
     if (selection instanceof IStructuredSelection) {
       if (part != this) {
         if (!selection.isEmpty()) {

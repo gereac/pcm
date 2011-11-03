@@ -1,3 +1,21 @@
+Status 04.11.2011
+
+1. Delete user (from menu or toolbar) not working
+2. edit user not working correctly
+3. edit usergroup not working
+4. model changes are not propagated correctly between the views (on selection change or on editing)
+5. status bar not working
+6. disable contextual menu on view tabs ...
+7. remove the toolbar buttons from the intro view
+8. make the intro view not closable and siable most of the menu/toolbar entries in this case.
+9. add user not working anymore
+10. make collapse all toolbar button to work
+11. create User e-mail validator for databinding
+
+After this list is complete we can discuss the next milestone.
+
+---------------------------------------------------------------------------------
+
 Build a user friendly eclipse RCP application that implements the follow features. 
 
 Code Name : Personal Contact Manager 
