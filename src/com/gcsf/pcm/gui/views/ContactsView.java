@@ -32,6 +32,8 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.handlers.CollapseAllHandler;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.Page;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.IWorkbenchSiteProgressService;
@@ -79,6 +81,8 @@ public class ContactsView extends ViewPart implements
   private IViewSite fViewSite;
 
   private Page propertyPage;
+
+  private CollapseAllHandler collapseAllHandler;
 
   public void createPartControl(Composite parent) {
     GridLayout gridLayout = new GridLayout(1, false);
@@ -129,8 +133,6 @@ public class ContactsView extends ViewPart implements
     treeViewer.setAutoExpandLevel(1);
     // Provide the input to the ContentProvider
     treeViewer.setInput(GroupsProviderMock.getInstance());
-
-    // getViewSite().setSelectionProvider(treeViewer);
 
     clipboard = new Clipboard(fViewSite.getShell().getDisplay());
     createActions();
@@ -231,6 +233,11 @@ public class ContactsView extends ViewPart implements
   }
 
   private void createActions() {
+    IHandlerService service = (IHandlerService) getSite().getService(
+        IHandlerService.class);
+    collapseAllHandler = new CollapseAllHandler(treeViewer);
+    service.activateHandler(CollapseAllHandler.COMMAND_ID, collapseAllHandler);
+
     cutAction = new CutUserAction(treeViewer, clipboard);
     cutAction.setImageDescriptor(Activator
         .getImageDescriptor("icons/edit/cut_edit.gif"));

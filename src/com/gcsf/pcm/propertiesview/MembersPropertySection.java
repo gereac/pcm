@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.jface.layout.TableColumnLayout;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -12,11 +14,13 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 
+import com.gcsf.pcm.adapter.UserGroupPropertySource;
 import com.gcsf.pcm.model.User;
 import com.gcsf.pcm.model.UserGroup;
 
@@ -43,11 +47,14 @@ public class MembersPropertySection extends AbstractPropertySection {
     this.userGroup = (UserGroup) input;
   }
 
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
   public void createControls(Composite parent,
       TabbedPropertySheetPage aTabbedPropertySheetPage) {
     super.createControls(parent, aTabbedPropertySheetPage);
     Composite composite = getWidgetFactory().createFlatFormComposite(parent);
+    TableColumnLayout tableColumnLayout = new TableColumnLayout();
+    composite.setLayout(tableColumnLayout);
     FormData data;
 
     table = getWidgetFactory().createTable(composite,
@@ -55,14 +62,17 @@ public class MembersPropertySection extends AbstractPropertySection {
     table.setHeaderVisible(true);
     table.setLinesVisible(true);
 
-    // List labels = UserGroupPropertySource.getP();
-    // columns = new ArrayList();
-    //
-    // for (Iterator i = labels.iterator(); i.hasNext();) {
-    // TableColumn column = new TableColumn(table, SWT.NONE);
-    // column.setText((String) i.next());
-    // columns.add(column);
-    // }
+    columns = new ArrayList();
+
+    String[] titles = UserGroupPropertySource.getPropertiesDisplayValuesTable();
+    int[] weights = { 30, 30, 30 };
+
+    for (int i = 0; i < titles.length; i++) {
+      TableColumn column = new TableColumn(table, SWT.NONE);
+      column.setText(titles[i]);
+      tableColumnLayout.setColumnData(column, new ColumnWeightData(weights[i]));
+      columns.add(column);
+    }
 
     data = new FormData();
     data.left = new FormAttachment(0, 0);
@@ -83,12 +93,10 @@ public class MembersPropertySection extends AbstractPropertySection {
       item.setText(new String[] { aUser.getUserName(), aUser.getUserEmail(),
           aUser.getUserPhone() });
       item.setData(next);
-
-      table.pack();
     }
-
   }
 
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   protected List getOwnedRows() {
 
     ArrayList ret = new ArrayList();

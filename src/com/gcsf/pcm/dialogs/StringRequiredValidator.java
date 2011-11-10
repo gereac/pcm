@@ -5,7 +5,7 @@ import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
-class StringRequiredValidator implements IValidator {
+public class StringRequiredValidator implements IValidator {
 
   private final String errorText;
 

@@ -55,6 +55,7 @@ public class UserGroupNameEditingSupport extends EditingSupport {
     if (element instanceof UserGroup) {
       ((UserGroup) element).setGroupName(String.valueOf(value));
     }
-    viewer.refresh();
+    String[] props = { "groupName" };
+    viewer.update(element, props);
   }
 }

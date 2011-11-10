@@ -149,12 +149,12 @@ public class UserDetailsDialog extends Dialog {
     dataBindingContext.bindValue(SWTObservables.observeText(phoneText,
         SWT.Modify), PojoObservables.observeValue(user, "userPhone"),
         new UpdateValueStrategy()
-            .setAfterConvertValidator(new StringRequiredValidator(
+            .setAfterConvertValidator(new PhoneRequiredValidator(
                 "Please enter phone")), null);
     dataBindingContext.bindValue(SWTObservables.observeText(emailText,
         SWT.Modify), PojoObservables.observeValue(user, "userEmail"),
         new UpdateValueStrategy()
-            .setAfterConvertValidator(new StringRequiredValidator(
+            .setAfterConvertValidator(new EmailRequiredValidator(
                 "Please enter email")), null);
 
     AggregateValidationStatus aggregateValidationStatus = new AggregateValidationStatus(

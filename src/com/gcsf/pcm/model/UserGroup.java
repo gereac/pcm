@@ -36,7 +36,6 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
   public void setGroupName(String groupName) {
     propertyChangeSupport.firePropertyChange("groupName", this.groupName,
         this.groupName = groupName);
-
   }
 
   public String getGroupDescription() {
@@ -65,6 +64,7 @@ public class UserGroup implements PropertyChangeListener, ITreeElement {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
+    System.out.println(evt);
     propertyChangeSupport.firePropertyChange("groupName", this.groupName,
         this.groupName = groupName);
   }

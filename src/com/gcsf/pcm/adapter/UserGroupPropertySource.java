@@ -12,22 +12,43 @@ import com.gcsf.pcm.model.UserGroup;
 
 public class UserGroupPropertySource implements IPropertySource {
 
-  protected static final String PROPERTY_NAME = "groupName"; //$NON-NLS-1$
+  private static final String PROPERTY_NAME = "groupName"; //$NON-NLS-1$
 
-  protected static final String PROPERTY_DESCRIPTION = "groupDescription"; //$NON-NLS-1$
+  private static final String PROPERTY_DESCRIPTION = "groupDescription"; //$NON-NLS-1$
 
-  protected static final String PROPERTY_USERS = "groupMembers"; //$NON-NLS-1$
+  private static final String PROPERTY_USERS = "groupMembers"; //$NON-NLS-1$
+
+  private static final String PROPERTY_NAME_DISPLAY_VALUE = "Name";
+
+  private static final String PROPERTY_DESCRIPTION_DISPLAY_VALUE = "Description";
+
+  private static final String PROPERTY_USERS_DISPLAY_VALUE = "Users";
+
+  private static final String BASIC_CATEGORY = "Basic";
+
+  private static final String ADVANCED_CATEGORY = "Advanced";
+
+  private static String PropertiesDisplayValuesTable[] = {
+      PROPERTY_NAME_DISPLAY_VALUE, PROPERTY_DESCRIPTION_DISPLAY_VALUE,
+      PROPERTY_USERS_DISPLAY_VALUE };
 
   private final Object PropertiesTable[][] = {
-      { PROPERTY_NAME, new TextPropertyDescriptor(PROPERTY_NAME, "Name") },
-      { PROPERTY_DESCRIPTION,
-          new TextPropertyDescriptor(PROPERTY_DESCRIPTION, "Description") },
-      { PROPERTY_USERS, new TextPropertyDescriptor(PROPERTY_USERS, "Users") }, };
+      {
+          PROPERTY_NAME,
+          new TextPropertyDescriptor(PROPERTY_NAME, PROPERTY_NAME_DISPLAY_VALUE) },
+      {
+          PROPERTY_DESCRIPTION,
+          new TextPropertyDescriptor(PROPERTY_DESCRIPTION,
+              PROPERTY_DESCRIPTION_DISPLAY_VALUE) },
+      {
+          PROPERTY_USERS,
+          new TextPropertyDescriptor(PROPERTY_USERS,
+              PROPERTY_USERS_DISPLAY_VALUE) } };
 
-  private final UserGroup userGroup;
+  private final UserGroup myUserGroup;
 
   public UserGroupPropertySource(UserGroup userGroup) {
-    this.userGroup = userGroup;
+    myUserGroup = userGroup;
   }
 
   @Override
@@ -51,9 +72,9 @@ public class UserGroupPropertySource implements IPropertySource {
       descriptor = (PropertyDescriptor) PropertiesTable[i][1];
       propertyDescriptors[i] = (IPropertyDescriptor) descriptor;
       if (!descriptor.getId().equals(PROPERTY_USERS)) {
-        descriptor.setCategory("Basic");
+        descriptor.setCategory(BASIC_CATEGORY);
       } else {
-        descriptor.setCategory("Advanced");
+        descriptor.setCategory(ADVANCED_CATEGORY);
       }
     }
     // Return it.
@@ -63,13 +84,13 @@ public class UserGroupPropertySource implements IPropertySource {
   @Override
   public Object getPropertyValue(Object id) {
     if (id.equals(PROPERTY_NAME)) {
-      return userGroup.getGroupName();
+      return myUserGroup.getGroupName();
     }
     if (id.equals(PROPERTY_DESCRIPTION)) {
-      return userGroup.getGroupDescription();
+      return myUserGroup.getGroupDescription();
     }
     if (id.equals(PROPERTY_USERS)) {
-      return userGroup.getGroupMembers();
+      return myUserGroup.getGroupMembers();
     }
     return null;
   }
@@ -83,16 +104,20 @@ public class UserGroupPropertySource implements IPropertySource {
   public void setPropertyValue(Object id, Object value) {
     String s = (String) value;
     if (id.equals(PROPERTY_NAME)) {
-      userGroup.setGroupName(s);
+      myUserGroup.setGroupName(s);
     }
     if (id.equals(PROPERTY_DESCRIPTION)) {
-      userGroup.setGroupDescription(s);
+      myUserGroup.setGroupDescription(s);
     }
     @SuppressWarnings("unchecked")
     List<User> groupMembers = (List<User>) value;
     if (id.equals(PROPERTY_USERS)) {
-      userGroup.setGroupMembers(groupMembers);
+      myUserGroup.setGroupMembers(groupMembers);
     }
+  }
+
+  public static String[] getPropertiesDisplayValuesTable() {
+    return PropertiesDisplayValuesTable;
   }
 
 }

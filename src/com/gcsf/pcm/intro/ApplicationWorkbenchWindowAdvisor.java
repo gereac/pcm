@@ -31,7 +31,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
   private IWorkbenchWindow window;
 
   private final static String EXIT_COMMAND_ID = "com.gcsf.pcm.tray.exitCommand";
-  
+
   private final static String ABOUT_COMMAND_ID = "org.eclipse.ui.help.aboutAction";
 
   public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
@@ -150,8 +150,14 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     if (trayItem != null) {
       trayItem.dispose();
     }
-    if(window != null){
+    if (window != null) {
       window = null;
     }
+  }
+
+  @Override
+  public void postWindowCreate() {
+    Shell shell = getWindowConfigurer().getWindow().getShell();
+    shell.setMaximized(true);
   }
 }

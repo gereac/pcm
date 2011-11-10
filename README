@@ -5,12 +5,13 @@ Status 04.11.2011
 3. edit usergroup not working
 4. model changes are not propagated correctly between the views (on selection change or on editing)
 5. status bar not working
-6. disable contextual menu on view tabs ...
-7. remove the toolbar buttons from the intro view
-8. make the intro view not closable and siable most of the menu/toolbar entries in this case.
+DONE -- 6. disable contextual menu on view tabs ...
+7. remove the toolbar buttons from the intro view --> see CustomPropertiesView ... where some buttons are removed
+POSTPONED -- 8. make the intro view not closable and disable most of the menu/toolbar entries in this case.
 9. add user not working anymore
-10. make collapse all toolbar button to work
-11. create User e-mail validator for databinding
+DONE --> 10. make collapse all toolbar button to work --> see CollapseAllHandler ... or CollapseAllAction 
+DONE --> 11. create User e-mail validator for databinding
+DONE --> 12. fix the tabbed properties view layout issues ... useless table.pack(); removed
 
 After this list is complete we can discuss the next milestone.
 
